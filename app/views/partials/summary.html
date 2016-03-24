@@ -1,0 +1,104 @@
+<div style="margin-top: -25px; margin-right: 10px; cursor: pointer" class = "pull-right">
+  <img src="./img/Q2_Print.svg">
+</div>
+
+<div class = "row summary">
+    <ul class = "list-unstyled" id="summary"
+    ng-repeat="cat in Buckets" ng-controller="SummaryCategoryController" >
+      <div class="content-panel panel-head disclosing"
+        ng-click="cat.hidden = !cat.hidden"
+        ng-class="{'gold-bottom': !cat.hidden}">
+        <div class = "row header">
+          <div class="col-md-6 text-left" style="padding-left: 0px;">
+          <h2 class = "sum-cat" >{{cat.name}}</h2>
+        </div>
+        <div class = "col-md-6 text-right" style="padding-right: 0px;" ng-hide ="clearBalances == true">
+          <div class="body5" style="margin-top: 4px;" ng-hide="cat.name == 'External Accounts'">
+            <span class="sup">$</span>{{Math.trunc(accountTotal(cat.name)) | number : 0}}<span class="sup">{{accountTotal(cat.name) | number : 2 | cents}}</span>
+          </div>
+          <div class="body3" style="margin-top: -6px;" ng-hide="cat.name == 'External Accounts'">{{cat.balance_meta}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEGIN SUB-ACCOUNT CONTAINER -->
+    <div class="summary-initial" ng-class="!cat.hidden ? collection[currentOpenStatusIndex] : 'summary-initial'">
+      <li class = "bg-offwhite list-unstyled" id ="summary" ng-repeat="account in Accounts | filter: {accounttype: cat.name}" ng-class="cat.hidden ? 'accountOpen' : ''">
+        <div class = "account" ng-controller='SummaryAccountController'>
+         <div class = "row header">
+          <div class = "account-row" ng-click="gotoAccount()">
+            <h4 class = "text-left col-md-6 summary-nickname">{{account.nickname}}</h4>
+            <h4 class = "balance text-right col-md-6">
+              ${{account.balance | number: 0}}
+              <span class="sup">{{account.balance | currency | cents}}</span>
+              &nbsp;&nbsp;
+            </h4>
+          </div>
+          <div class = "row" ng-click="gotoAccount()" style="cursor: pointer">
+            <span class="text-left col-md-12 bodygray summary" style="padding-left: 0px">
+              {{account.is_external ? account.subtitle : account.account_type + ' ' + account.acct_no}}
+            </span>
+          </div>
+
+          <div class="row" style="margin-top: 8px" ng-click=" quickpeekOpen$index = !quickpeekOpen$index">
+            <div ng-if="cat.name != 'Investments'">
+              <span title "View recent transactions" class = "caret summary closed" ng-hide="accountOpen" ng-class="quickpeekOpen$index? 'caret-rotate' : ''"></span>
+              <p class = "body16 qv"> Quick View </p>
+            </div>
+          </div>
+            <!-- BEGIN QUICKPEEK TRANSACTION LIST -->
+          <div ng-class="!quickpeekOpen$index ? 'quickpeek-collapse' : 'quickpeek-expanded'">
+          <div style="min-height: 24px" class="row"></div>
+
+            <div class = "row quickpeek text-left"
+            ng-repeat="transaction in Transactions | filter:{accountId: account.id} | limitTo:10">
+              <span class = "col-md-2 text-left date body2">{{transaction.created_at | date:"MM/dd/yyyy"}}</span>
+              <span class = "col-md-8 text-left uppercase body">{{transaction.description}}</span>
+              <span class = "col-md-2 text-right body">{{transaction.amount}}</span>
+            </div>
+
+            <div class="row quickpeek">
+              <div class = "col-md-6" style="padding-top: 32px;">
+                <div ng-if="account.nickname == 'Family Checking'">
+                <span class="body4"
+                    ng-show="account.showAccountNumber">Account Number: 12345601234&nbsp;</span>
+                <a class="link3"
+                    ng-click="account.showAccountNumber = !account.showAccountNumber">
+                    {{account.showAccountNumber ? 'Hide' : 'Show'}} account number
+                </a><br>
+                <span class="body4">Routing Number: 321081169
+                  <i class="fa fa-question-circle"
+                     data-html="true"
+                     data-toggle="tooltip"
+                     title="This routing number may be used for ACH(Automatic Clearing House) or wire transfers.">
+                  </i>
+                </span>
+                </div>
+              </div>
+              <div class = "col-md-6" style="padding-top: 24px;">
+                <button class = "btn btn-gold short pull-right" style="margin-top: 10px" ng-click="gotoAccount()" style="width: 47.5%;">
+                Go to account
+                </button>
+              </div>
+            <!-- CLOSE CHECKING GO TO ACCOUNT INFORMATION -->
+            </div>
+            <!-- CLOSE QUICKPEEK -->
+          </div>
+          <div class = "separator separator-summary"></div>
+        </li>
+        </div>
+         <div class="summary-control" ng-hide="cat.hidden">
+            <div ng-click = "cat.hidden = !cat.hidden" class = "chevron-up chevron-up-summary">
+          </div>
+      </div>
+    </li>
+
+    <div class="chevron-down chevron-down-summary" ng-hide="!cat.hidden"></div>
+  </ul>
+</div>
+<div>
+  <button class = "btn btn-white short pull-left" style="width: 275px; height: 50px; margin-top: 46px; margin-bottom: 46px; font-size: 20px;" ng-click="openOverpanel('add-external')">
+       <span>+ Add external accounts</span>
+  </button>
+</div>
+<gutter></gutter>

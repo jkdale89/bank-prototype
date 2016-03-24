@@ -1,0 +1,73 @@
+<div class = "row">
+  <div class = "content-panel panel-head disclosing col-md-6 text-center btop header"
+    ng-click="qpayment = !qpayment; qtransfer = false; selectedTab = 'payment'; quickpaycontrol = true">
+    <h2 class ="quickpay">Pay Bill</h2>
+    <div class="chevron-down chevron-down-qp"></div>
+  </div>
+  <div class = "content-panel col-md-6 text-center header"
+    ng-click="qtransfer = !qtransfer; qpayment = false; selectedTab = 'transfer'; quicktransfercontrol = true">
+    <div>
+      <h2 class ="quickpay">Transfer</h2>
+    </div>
+    <div class="chevron-down chevron-down-qp"></div>
+  </div>
+</div>
+
+<!-- Refer to "dropdown.html" to see how the template works - to create a now dropdown, use the dropdown element, passing a heading, placeholder, and options -->
+
+
+
+<!-- Payment Window -->
+<div class = "content-panel row" style="padding-top: 1em;" ng-hide="!qpayment">
+  
+  <p class="body">All fields are required unless noted as optional.</p>
+  
+  <div class="form-field-header">To</div>
+  <dropdown placeholder="Please Select"></dropdown>
+  
+  <div class="form-field-header">From</div>
+  <dropdown placeholder="Family Checking #1234"></dropdown>
+  
+  <div class="form-field-header">Amount</div>
+  
+  <input type = "textarea" placeholder="$0.00"></input>
+  
+  <div class="form-field-header">Date</div>
+  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+  
+  
+  <p></p>
+  <button class = "btn btn-gold pull-middle quickpay">Schedule Payment</button>
+  
+  <div class="quickpay-control" ng-hide="!quickpaycontrol">
+    <div ng-click = "qpayment = false" class = "chevron-up chevron-up-qp"></div>
+  </div>
+  
+</div>
+
+<div class = "panel-content row" style="padding-top: 1em;" ng-hide="!qtransfer">
+  <p class="body">All fields are required unless noted as optional.</p>
+  
+  <div class="form-field-header">From</div>
+  <dropdown placeholder="Please Select"></dropdown>
+  
+  <div class="form-field-header">To</div>
+  <dropdown placeholder="Family Checking #1234"></dropdown>
+  
+  <div class="form-field-header">Amount</div>
+  <input type = "textarea" placeholder="$0.00"></input>
+  
+  <div class="form-field-header">Date</div>
+  <input type ="textarea" placeholder="mm/dd/yyyy"></input>
+  
+  <p></p>
+  
+  <button class = "btn btn-gold quickpay" >Schedule Payment</button>
+  
+  <div class="quickpay-control" ng-hide="!quicktransfercontrol">
+    <div  ng-click = "qtransfer = false" class = "chevron-up chevron-up-qp"></div>
+  </div>
+  
+</div>
+
+<gutter></gutter>

@@ -1,0 +1,131 @@
+<!-- Status Center Open-->
+<div class="status-center">
+  <!-- Tracking Payments  -->
+  <div class="sc-tracker" ng-click="showPayments = true" >
+
+    <div class="content-panel panel-head disclosing" ng-class="!(showPayments == false && showAddPayment == false) ? 'gold-bottom' : ''">
+      <div class='sc-content-container'>
+        <div class='sc-tracker-title' ng-if="true">
+          <h2>Bill payments</h2>
+          <div class='body9'>${{Bills.scheduled() | number}} within the next month</div>
+        </div>
+        <div class='sc-tracker-title' ng-if="scheduledPayments.count == 0">
+          <h2>You have no payments scheduled.</h2>
+        </div>
+      </div>
+    </div>
+        
+        <div class='sc-tracker-action' style="position: absolute; right: 24px; margin-top: -54px; z-index: 10; ">
+          <button class='btn btn-gold short pull-right' style="width: 140px;" ng-click='showAddPayment = true; resetErrors();'>Make a payment</button>
+        </div>
+      </div>
+      <div style="margin-left: 13.75%" class="chevron-down chevron-down-sc" ng-hide="showPayments||showAddPayment"></div>
+ 
+  <!-- PAYMENT DIRECTIVE BEGINNING - WHEN "MAKE A PAYMENT" IS CLICKED, OPENS THIS -->
+  <div class="sc-make-payment-initial" 
+    ng-class="showAddPayment ? 'sc-make-payment-expanded' : ''">
+    <fund-transfer 
+      review-term="payment"
+      first-account-title='To'    schedule="schedule" first-account='paymentSink' error-toggle='requirePaymentSink'
+      second-account-title='From' second-accounts='paymentSources' second-account='paymentSource'
+    >
+      <dropdown placeholder="{{paymentPlaceholder}}" bill="paymentSink" class='fund-transfer-input' ng-class="{valued: paymentSink}">
+        <li ng-repeat='bill in Bills | limitTo:5' ng-click='selectedPaymentSink( bill ); resetFromError()'>
+          <div style="white-space: nowrap" class="quad-grid" ng-class="{lastbill: $last}" ng-controller="StatusCenterController" ng-click="testQuad(); populateAmount(bill)">
+            <div class='quad-grid-column'>
+              <div class="body2">{{bill.name}}</div>
+              <div class="body13">{{bill.number}}</div>
+            </div>
+            <div class='quad-grid-column text-right'>
+              <div class="body13">{{bill.amount | currency}} {{bill.scheduled ? 'scheduled' : ''}}</div>
+              <div class="body13" style="white-space: nowrap;">{{bill.scheduled? '' : bill.description}}</div>
+            </div>
+          </div>
+        </li>
+        <li style="border-top: .1em solid lightgray; height: 50px;">
+          <a ng-href="#/bills/" style="color: #DAAC45; line-height: 3.5" class="link3">Go to Bill Pay to add new payee</a>
+        </li>
+      </dropdown>
+    </fund-transfer>
+  </div>
+
+  <div class = 'sc-initial' ng-class="(showPayments || showAddPayment)? 'sc-expanded' : ''">
+    <div class = "row content-panel content-sc" ng-repeat="bill in Bills | filter:{scheduled: true}">
+      <div class='sc-payment' ng-class="{last: $last}">
+        <div class='sc-pay-left'>
+          <div class='sc-pay-when body7'>{{bill.pay_date | date:'M/dd'}}</div>
+          
+          <div class='sc-pay-recipient body8'>{{bill.name}}</div>
+          <div class="sc-pay-source body9">from Family Checking 1234</div>
+        </div>
+        <div class='sc-pay-right'>
+          <h4>{{bill.amount | currency}}</h4>
+          <div class="sc-cancel">
+            <a ng-if="!bill.note" class="link3">Cancel</a>
+            <p ng-if="bill.note" class="sc-description body3 sc-status">{{bill.note}}</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="row sc-control sc-content-container" ng-hide="(showPayments == false && showAddPayment == false)">
+      <div ng-click= "showPayments = false; showAddPayment = false" class = "chevron-up chevron-up-sc"></div>
+    </div>
+  </div>
+  
+  <!-- Tracking Transfers -->
+  <div class="sc-tracker" ng-click="showTransfers = true">
+    <div class="content-panel panel-head disclosing" ng-class="!(showTransfers == false && showAddTransfer == false) ? 'gold-bottom' : ''">
+      <div class='sc-content-container'>
+        <div class='sc-tracker-title' ng-if="true">
+          <h2>Transfers </h2>
+          <div class='body9'>${{Transfers.scheduled() | number}} within the next month</div>
+        </div>
+        <div class='sc-tracker-title' ng-if="scheduledTransfers.count == 0">
+          <h2>You have no transfers scheduled.</h2>
+        </div>
+        <div class='sc-tracker-action'>
+          <button class='btn btn-gold short pull-right' ng-click='showAddTransfer = true; showTransfers = true'>Transfer funds</button>
+        </div>
+      </div>
+      <div class="chevron-down chevron-down-sc" ng-hide="showTransfers||showAddTransfer"></div>
+    </div>
+  </div>
+  
+  <!-- TRANSFER BOX OPENED - WHEN MAKE A TRANSFER IS CLICKED, OPENS THIS -->
+  <div class="sc-make-transfer-initial" ng-class = "showAddTransfer? 'sc-make-transfer-expanded' : ''">
+    <fund-transfer 
+      review-term="transfer"
+      first-account-title='From' schedule="schedule" first-accounts='transferSources' first-account='transferSource' error-toggle='requireTransferSource'
+      second-account-title='To' second-accounts='transferSinks' second-account='transferSink'
+      >
+    </fund-transfer>
+  </div>  
+  <div class="sc-transfer-initial" ng-class="showTransfers? 'sc-transfer-expanded' : ''">
+    <div class="row content-panel content-sc" ng-repeat="transfer in Transfers | filter:{transaction_type:'internal'}">
+      <div class="sc-payment" ng-class="{last: $last}">
+        <div class="sc-pay-left">
+          <div class="sc-pay-when body7">{{transfer.description == 'Processing' ? date : transfer.created_at | date:'M/dd'}}</div>
+          <div class="sc-pay-recipient body8">{{transfer.recipient}}</div>
+          <div class="sc-pay-source body9">Family Checking #1234</div>
+        </div>
+        <div class="sc-pay-right">
+          <h4>{{transfer.amount | currency}}</h4>
+          <div ng-if="transfer.description !== 'Weekly'" class="sc-description body3" ng-class="{'sc-status': transfer.description === 'Processing'}">{{transfer.description}}</div>
+          <div ng-if="transfer.description == 'Weekly'" class="sc-description body3" ng-class="{'sc-status': transfer.description === 'Processing'}">Weekly on {{transfer.created_at | date:'EEEE'}}s</div>
+          <div class="sc-cancel">
+            <!-- Add in cancel functionality -->
+            
+            <a ng-if="transfer.description != 'Processing'" class="link3">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row sc-control" ng-show="showTransfers">
+    <div ng-click = "showTransfers = false; showAddTransfer = false" class = "chevron-up chevron-up-sc"></div>
+  </div>
+  <!-- Close Status Center -->
+</div>
+
+<gutter></gutter>

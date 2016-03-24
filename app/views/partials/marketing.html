@@ -1,0 +1,20 @@
+<!-- GREEN BAR GRADIENT AT THE TOP -->
+<div id = "carousel-bar"></div>
+
+<div class = "row content-panel" style="padding: 0px; border-bottom: .1em solid lightgray">
+  <div class = "col-md-2" ng-click="rotateCarousel(marketingOptions, 'left')">
+    <i class = "fa fa-angle-left text-left"></i>
+  </div>
+  <!-- STARTS AT THIS ONE -->
+  <div
+  class = "col-md-8"
+  ng-repeat = "item in marketingOptions"
+  ng-hide="$index != 0">
+    <h3 class = "carousel">{{item.title}}</h3>
+    <p class = "bodygray text-center carousel">{{item.description}}</p>
+  </div>
+  <div ng-click="rotateCarousel(marketingOptions, 'right')" class = "col-md-offset-1 col-md-1">
+    <i class = "fa fa-angle-right text-right"></i>
+  </div>
+</div>
+<gutter></gutter>

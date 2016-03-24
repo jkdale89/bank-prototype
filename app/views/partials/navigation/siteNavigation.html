@@ -1,0 +1,27 @@
+<div class="row siteNavigation">
+  <ul style="height: 68px; margin-top: 9px" class = "nav nav-justified">
+    <li ng-repeat="category in siteCategories"
+    ng-mouseenter="submenu = true"
+    ng-mouseleave="submenu = false">
+      <a class="white-link"
+      ng-href="#/{{category.urlAlias}}/{{awesome ? 'awesome' : null}}"
+      ng-click="makeActive(siteCategories, $index)"
+      ng-class="category.active ? 'darkbg' : ''">
+        {{category.title}}
+        <span ng-if="siteCategories[$index].options" class="caret submenu"></span>
+      </a>
+      <div class = "categories-dropdown" ng-hide="!submenu">
+        <div class="row"
+        ng-repeat="option in siteCategories[$index].options"
+        ng-style="option.separator ? {'border-bottom' : '.1em solid lightgray'} : ''">
+          <a class="body navmenu-link"
+            ng-href="#/{{option.urlAlias}}/{{awesome ? 'awesome' : null}}">{{option.title}}
+          </a>
+        </div>
+      </div>
+      <div style="position: relative">
+        <div class="up-arrow" ng-show="category.active"></div>
+      </div>
+    </li>
+  </ul>
+</div>

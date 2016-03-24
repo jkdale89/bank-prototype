@@ -1,0 +1,1611 @@
+$btngold: #DAAC45;
+$btnlightgold: #F5EBD2;
+$btnhover: #C1963A;
+$btndisabled: #E5C57C;
+$lightergray: #F5F5F5;
+
+$frbgreen: #134b39;
+$primaryblack: #4A4A4A;
+$graytext: #7D7D7D;
+$boxshadow: .5px .5px .5px #D9AA43;
+$grayborder: 1px solid #C1963A;
+
+
+$leftmargin: 10.5%;
+$arrowposition: 49%;
+
+@import url("http://fast.fonts.net/t/1.css?apiType=css&projectid=e071f3c0-ffeb-4ab9-8ac8-8aba846900f4");
+@font-face {
+    font-family: "Neue Haas Unica W01 Thin";
+    src: url("fonts/NeueHaas/ba48202e-b3fb-4d2e-b782-6e50f7f710b9.eot?#iefix");
+    src: url("fonts/NeueHaas/ba48202e-b3fb-4d2e-b782-6e50f7f710b9.eot?#iefix") format("eot"), url("fonts/NeueHaas/89cc27d4-e9bd-43de-ab56-cc7015e1ff7d.woff2") format("woff2"), url("fonts/NeueHaas/ad1cd90c-7793-4c0a-a7ce-4a6122b0e265.woff") format("woff"), url("fonts/NeueHaas/4c5113af-3402-4eb0-8a1e-59b38d4c4dc6.ttf") format("truetype"), url("fonts/NeueHaas/cdab2db0-1eb1-4654-ad89-5a64b95eab50.svg#cdab2db0-1eb1-4654-ad89-5a64b95eab50") format("svg");
+}
+
+@font-face {
+    font-family: "Neue Haas Unica W01 Light";
+    src: url("fonts/NeueHaas/001e59a9-197e-4fb1-9e72-cef21b186c03.eot?#iefix");
+    src: url("fonts/NeueHaas/001e59a9-197e-4fb1-9e72-cef21b186c03.eot?#iefix") format("eot"), url("fonts/NeueHaas/e5716290-d41e-4c97-a27c-7a20a46ddf45.woff2") format("woff2"), url("fonts/NeueHaas/b681571f-aab2-4935-a99c-6ee1063ce638.woff") format("woff"), url("fonts/NeueHaas/1d88a9b0-aac0-40df-baf7-a630cd19cc5d.ttf") format("truetype"), url("fonts/NeueHaas/40a247b1-2840-4953-b24b-8a82ace0673b.svg#40a247b1-2840-4953-b24b-8a82ace0673b") format("svg");
+}
+
+@font-face {
+    font-family: "Neue Haas Unica W01 Regular";
+    src: url("fonts/NeueHaas/0ebd7648-5847-404a-a88a-28a353c0921c.eot?#iefix");
+    src: url("fonts/NeueHaas/0ebd7648-5847-404a-a88a-28a353c0921c.eot?#iefix") format("eot"), url("fonts/NeueHaas/e0d80810-f7e3-4fea-8c57-ef8116f0465d.woff2") format("woff2"), url("fonts/NeueHaas/27645c8a-608b-4abf-a2f1-c4407b576723.woff") format("woff"), url("fonts/NeueHaas/bd3b3439-8eff-445c-80ed-87064138ca7d.ttf") format("truetype"), url("fonts/NeueHaas/bf3731ee-64fe-49c1-b8a6-a4edbff3c74a.svg#bf3731ee-64fe-49c1-b8a6-a4edbff3c74a") format("svg");
+}
+
+@font-face {
+    font-family: "Neue Haas Unica W01 Bold";
+    src: url("fonts/NeueHaas/debbfa41-3ea8-466c-9174-de4e919598ed.eot?#iefix");
+    src: url("fonts/NeueHaas/debbfa41-3ea8-466c-9174-de4e919598ed.eot?#iefix") format("eot"), url("fonts/NeueHaas/39bb8fb3-84a4-4ab8-ae45-db1834f5d807.woff2") format("woff2"), url("fonts/NeueHaas/96fd4fb4-75db-412f-986d-d65380ee0ccf.woff") format("woff"), url("fonts/NeueHaas/d86863bd-a6e3-4cd0-abe7-a711edaaebc6.ttf") format("truetype"), url("fonts/NeueHaas/eea53212-4a22-464f-bb6f-5cd5b17467ff.svg#eea53212-4a22-464f-bb6f-5cd5b17467ff") format("svg");
+}
+
+$sansserif: 'Neue Haas Unica W01 Regular',
+'Helvetica',
+'Gotham',
+'Montserrat',
+Arial;
+$sansserifthin: 'Neue Haas Unica W01 Thin',
+'Helvetica Neue Thin',
+'Helvetica Thin',
+'Montserrat Thin',
+Arial Thin,
+sans-serif;
+$sansseriflight: 'Neue Haas Unica W01 Light',
+'Helvetica Neue Light',
+'Helvetica Light',
+'Montserrat Light',
+Arial Light,
+sans-serif;
+$sansserifbold: 'Neue Haas Unica W01 Bold',
+'Helvetica Bold',
+'Montserrat Bold',
+Arial Bold;
+$serif: 'Garamond Premier Pro Regular',
+'Garamond Premier Pro',
+'Adobe Garamond Pro',
+'Garamond',
+'Times New Roman',
+serif;
+
+
+@media (min-width: 1400px) {
+	div.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.container {
+			width: 100% - $leftmargin - $leftmargin;
+			max-width: 1320px;
+			padding:0;
+			margin-left: auto;
+			margin-right: auto;
+	}
+
+	.container ng-view .sub-nav {
+		width:100%;
+	}
+
+	.container ng-view {
+		width: 100%;
+		flex-flow: row wrap;
+			display: flex;
+	}
+
+	.container main {
+		display: inline-block;
+		float: none;
+		width: 864px;
+		margin: 0;
+		padding: 0;
+		margin-right: 24px;
+	}
+
+	.container aside {
+		display: inline-block;
+		float: none;
+		width: 408px;
+		margin: 0;
+		padding: 0;
+		margin-left: 24px;
+	}
+
+	div#carousel-bar {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+@media (max-width: 1320px) {
+    .container {
+        width: 100%;
+        margin-left: $leftmargin;
+    }
+}
+
+
+/* app css stylesheet */
+
+/*TYPOGRAPHY*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: $serif;
+  color: $primaryblack;
+}
+
+ul#summary {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 21px;
+  font-style: medium;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 21px;
+  font-family: $sansseriflight;
+}
+
+h6 {
+  font-size: 25px;
+}
+
+h2, h3, h4, h5 {
+  margin-bottom: 0px;
+}
+small {
+  font-size: 11px;
+}
+
+p {
+  font-size: 14px;
+  font-color: $primaryblack;
+}
+
+p.gray {
+  color: $graytext;
+}
+
+i.fa-caret-down.dropdown {
+  color: lightgray;
+  display: inline;
+  left: 50%;
+}
+
+div.up-arrow {
+  height: 0;
+  width: 0;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 32px;
+  left: 40%;
+}
+
+div.up-arrow:hover {
+  border-bottom: 10px solid #EEEEEE;
+  opacity: .5;
+}
+
+div.up-arrow#active {
+  border-bottom: 10px solid #EEEEEE;
+}
+
+div.summary-down-arrow {
+  height: 15px;
+  width: 15px;
+  background: white;
+  transform: rotate(45deg);
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  position: relative;
+  top: 62px;
+  left: $arrowposition;
+}
+
+
+div.status-down-arrow {
+  height: 15px;
+  width: 15px;
+  background: white;
+  transform: rotate(45deg);
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  position: relative;
+  top: 13px;
+  left: $arrowposition;
+}
+
+div.billpay-sub-nav {
+  max-width: 100px;
+}
+
+div.quickpay-down-arrow {
+  height: 15px;
+  width: 15px;
+  background: white;
+  transform: rotate(45deg);
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  position: relative;
+  top: 13px;
+  left: $arrowposition;
+}
+
+.bg-offwhite {
+  background: #fafafa;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+}
+
+h2.balance {
+  font-family: $sansseriflight;
+}
+div.meta {
+  padding-top: 1.5rem;
+}
+
+.quickpay-drop {
+  width: 90%;
+}
+
+li.bill-list {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+h1.bp {
+  line-height: 1.5;
+}
+
+ul.bill-list {
+  display: inline;  
+  position: absolute;
+  margin-left: 200px;
+  margin-top: -65px;
+}
+
+small.meta {
+  margin: 0;
+  padding-right: 0px;
+  top: -7px;
+  font-size: 11px;
+  position: relative;
+  color: #93918E;
+  padding-left: 30px;
+}
+.main-nav {
+  height: 110px;
+  background-color: transparent;
+}
+
+li.first-bill-list {
+  background: white;
+}
+
+div.row.nav-wrapper {
+  min-height: 110px;
+  background-color: $frbgreen;
+  position: absolute;
+  min-width: 100%;
+}
+
+div.row.nav-wrapper-dropdown {
+  height: 109px;
+  margin-top: 110px;
+  border-bottom: .1em solid lightgray;
+  background-color: transparent;
+  position: absolute;
+  min-width: 100%;
+}
+
+h3.greeting {
+  font-size: 36px;
+  padding-top: 12px;
+  font-weight: lighter;
+  font-style: italic;
+  font-family: $serif;
+}
+
+body {
+  background-color: #F6F6F6;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sub-nav > .billpay > ul >li {
+  padding-left: 25%;
+  display: inline;
+  float: left;
+}
+
+.btop {
+  border-top: .1em solid lightgray;
+}
+
+h2.sc-title {
+  padding-left: 2.5%;
+  white-space: nowrap;
+  line-height: .5;
+}
+
+li.sc-title {
+  margin-right: 15%;
+}
+
+li.sc-mobile {
+  margin-right: 6.5%;
+}
+
+li.sc-meta {
+  float: right;
+}
+
+div.status-type {
+  padding-left: 5rem;
+}
+
+ul.status-center {
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+a.print {
+  display: block;
+  text-align: right;
+}
+
+main {
+  width: 60.45%;
+  display: inline-block; 
+  float: left;
+}
+
+aside {
+  width: 32.5%;
+  display: inline-block;
+  float: right;
+}
+
+ul.list-unstyled.myteam p {
+  padding-left: 0px;
+  margin-bottom: .5rem;
+}
+
+ul.list-unstyled {
+  margin-bottom: 2rem;
+}
+
+option p {
+  font-size: 1.25em;
+}
+
+select.drop-down {
+  height: 4em;
+  width: 100%;
+  background: white;
+  border-radius: 0;
+}
+
+.cat {
+  background-color: #d1d0cb;
+  color: #fff;
+  padding-left: 10px;
+  width: auto;
+  padding-right: 10px;
+  margin-top: -10px;
+  padding-top: -10px;
+}
+
+select.drop-down.ng-pristine
+{
+  border-radius: 0;
+  font-size: 1.25em;
+  color: #93918E;
+}
+
+select.drop-down.ng-touched,
+select.drop-down.ng-dirty {
+  font-size: 1.25em;
+  color: black;
+}
+
+/*select.dropdown.ng-dirty {
+  background-color: black;
+}*/
+
+div.row.table-labels {
+  border-bottom: .1em solid lightgray;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+}
+
+a.accts {
+  margin-bottom: 12px;
+}
+
+.table-date > span {
+  margin-top: 11px;
+}
+
+p.table-label {
+  font-weight: bold;
+}
+p.form-header {
+  font-size: 14px;
+  margin-bottom: .2em;
+}
+
+#carousel-bar {
+  margin-left: -15px;
+  margin-right: -15px;
+  background-image: -webkit-gradient(radial,right top,10,90% 0,150,from(#1b5b38),to(#288c4e));
+  min-height: 1.5em;
+}
+
+div.summary {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dropdown-quickpay {
+  margin-bottom: .2em;
+}
+div.team {
+  border-top: none;
+}
+.dropdown {
+  margin: 0 auto;
+}
+
+div.row.qp-info {
+  padding-bottom: 21px;
+  border-bottom: .1em solid lightgray;
+}
+
+a.gold {
+  color: $btngold;
+  font-size: 12px;
+}
+
+p.route {
+  color: gray;
+  font-size: 12px;
+}
+
+
+
+
+.col-md-6.quickpeek-info {
+  padding-left: 48px;
+}
+
+div.quickpeek {
+  margin-bottom: 6px;
+}
+
+small.date, small.desc, small.amount {
+  font-size: 14px;
+  font-family: $sansseriflight;
+}
+
+small.date {
+  padding-left: 48px;
+  font-family: $sansserifbold
+}
+
+small.amount {
+  font-family: $sansserif;
+  font-size: 16px;
+}
+
+.caret.pull-right {
+  display: inline-block;
+  margin-top: 7px;
+}
+
+.caret.pull-right.help {
+  display: inline-block;
+  color: white;
+  float: left;
+  margin-top: -20px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent;
+}
+
+input.search-trans {
+  padding: 1em;
+  width: 100%;
+  background-color: $lightergray;
+  border: none;
+}
+
+input.search-trans-trans {
+  padding: 1em;
+  width: 100%;
+  background-color: $lightergray;
+  border: none;
+  margin-left: 15px;
+}
+
+input.search-bills {
+  padding-left: 12px;
+  width: 85%;
+}
+
+.fa.fa-angle-double-down {
+  margin-top: 8px;
+  color: lightgray;
+}
+
+.billpay-header.xpad {
+  padding-left: 24px
+}
+
+.billpay-header.ypad {
+  margin-left: 40px;
+}
+
+
+button#accountsearch {
+  border: none;
+}
+
+i.fa.fa-angle-up.myteam {
+  font-size: 28px;
+}
+
+i.fa.fa-angle-up.sum {
+  font-size: 28px;
+  
+}
+
+i.fa.fa-angle-up.sc {
+  font-size: 28px;
+  padding-bottom:12px;
+}
+
+div.bg-white.trans {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.btn-light-gold {
+  background: $btnlightgold;
+  color: $btngold;
+  border: none;
+}
+
+div.favorite-transfer {
+  border: .1em solid lightgray;
+  width: 80%;
+  height: 40px;
+  line-height: 1.5;
+  padding-top: 10px;
+  padding-left: 24px;
+}
+
+div.favorite-transfer-cancel {
+  border: .1em solid lightgray;
+  width: 15%;
+  float: right;
+  margin-top: -35px;
+  width: 30px;
+  height: 30px;
+  display: inline;
+  padding-left: 10px;
+  line-height: 1.5;
+  
+}
+
+.btn.btn-light-gold {
+  border-radius: 0;
+}
+
+p#accountsearch {
+  font-size: 19px;
+  font-family: $serif;
+  margin-bottom: 0px;
+  line-height: 2;
+}
+
+div#accountsearch{
+  border: none;
+  width: 300px;
+  float: left;
+}
+
+div.col-md-5.search-trans {
+  padding-right: 0px;
+}
+
+div.search-box {
+  background-color: $btngold;
+  height: 40px;
+  width: 40px;
+  padding-top: 8px;
+  margin-top: 4px;
+  padding-left: 15px
+}
+
+i.fa.fa-search {
+  color: white;
+  width: 90%;
+  height: 90%;
+}
+
+.text-gray {
+  color: $graytext;
+  display: inline-block;
+}
+
+.text-gold {
+  color: $btngold;
+}
+
+.text-black {
+  color: $primaryblack;
+}
+
+div.trans-sort {
+  margin-bottom: 24px;
+}
+
+.accounts-control {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 11px;
+  padding-top: 11px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  padding-bottom: 11px;
+}
+
+.transfers-control {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 11px;
+  padding-top: 48px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  padding-bottom: 11px;
+}
+
+i#transfers {
+  line-height: 1;
+}
+
+div.details {
+  background-color: #F2F1EF;
+  border-left: .1em solid lightgray;
+}
+.caret.text-gray {
+  margin-left: 24px;
+}
+
+div.trans {
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+div.col-md-6.details {
+  padding: 0px;
+  height: 70px;
+  border-bottom: .1em solid lightgray;
+}
+
+div.content.accounts {
+  padding-left: 0px;
+  padding-right: 0px;
+  cursor: pointer;
+}
+
+.text-black:hover {
+  color: $primaryblack;
+  text-decoration: underline;
+}
+
+.meta {
+  margin-top: -2px;
+  margin-bottom: 5px;
+}
+
+p.meta {
+  margin-top: -2px;
+  margin-bottom: 0px;
+  font-size: 8px;
+  padding-top: 0px;
+}
+
+p.meta-transfer {
+  margin-top: -2px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  padding-top: 0px;
+}
+
+p.transfer-title {
+  font-size: 18px;
+  font-family: $sansserifbold;
+}
+
+div.content {
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+  height:71px;
+  box-shadow: 0px 1px 2px 0px rgba(57, 57, 54, 0.2);
+}
+
+div.content-transfers {
+  padding-left: 0px;
+  padding-right: 0px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+  height:71px;
+  box-shadow: 0px 1px 2px 0px rgba(57, 57, 54, 0.2);
+}
+
+
+div.content-sc {
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 11px;
+}
+
+div.myteam {
+  padding: 21px 24px 21px 24px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+div.summary {
+  border-top: .1em solid lightgray;
+}
+
+.sub-content {
+  border-bottom: .1em solid #CCCCCC;
+  width: 90%;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.bg-white {
+  background: white;
+}
+
+h3.zero-bottom-margin {
+  margin-bottom: 0px;
+}
+
+h2.zero-vertical-margin {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+h2.quickpay {
+  margin-bottom: 0px;
+}
+
+h2.balance {
+  font-family: $sansserifthin;
+}
+
+.myteam-info p {
+  margin: 0px;
+}
+
+h2.sum-cat {
+  padding-top: 5px;
+}
+
+li.row#latest {
+  border-bottom: .1em solid black;
+}
+
+div.overdraft {
+  padding-top: 2em;
+  margin-top: 2em;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  border-top: .1em solid lightgray;
+}
+
+h2.myteam {
+  padding-bottom: 20px;
+}
+
+li.row {
+  border-bottom: .1em solid lightgray;
+  padding-top: 1em;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+div.gone {
+  display: none;
+}
+
+div.filter {
+  margin-bottom: 2em;
+}
+.no-border {
+  border: none;
+}
+.dropdown-toggle {
+  height: 3.5em;
+  width: 95%;
+  background: white;
+  text-align: left;
+  margin-bottom: 0px;
+  border-radius: 0;
+  margin-bottom: .4em;
+  border: .1em solid lightgray;
+  color: gray;
+}
+
+
+
+p.search-header-transfer {
+  padding-left: 24px;
+}
+
+.dropdown-toggle-transfer {
+  height: 3.5em;
+  width: 80%;
+  background: white;
+  text-align: left;
+  margin-bottom: 0px;
+  border-radius: 0;
+  margin-bottom: .4em;
+  border: .1em solid lightgray;
+  color: gray;
+  margin-left: 8px;
+  line-height: 2;
+}
+
+.dropdown-toggle-billpay {
+  height: 3.5em;
+  width: 90%;
+  font-size: 14px;
+  background: white;
+  text-align: left;
+  border: .1em solid lightgray;
+  margin-bottom: 0px;
+  border-radius: 0;
+  margin-bottom: .4em;
+}
+
+.dropdown-toggle:hover {
+  background: white;
+}
+
+.inactive {
+  background: lightgray;
+}
+
+h2.pie {
+}
+
+h3.recent-payments {
+  height: 2.5em;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-left: 1em;
+  border-bottom: .1em solid lightgray;
+  
+}
+
+div.bill-header-recent {
+  font-size: 15px;
+  font-family: $sansserifbold;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+}
+
+.bill-header {
+  border-bottom: .1em solid lightgray;
+  margin-left: 12px;
+  margin-right: 24px;
+  margin-bottom: 12px;
+}
+
+.bill-header-rp {
+  border-bottom: .1em solid lightgray;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 30px;
+}
+
+div.quickpay-content {
+  background: white;
+  padding-bottom: 2em;
+  border-top: none;
+  padding-top: 1em;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+div.bill-row {
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+  border-top: .1em solid lightgray;
+}
+
+div.billpay-body {
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
+}
+p.search-header {
+  font-size: 1em;
+}
+
+div.status-center {
+  margin-top: 24px;
+}
+
+div.billpay-container {
+  height: 10em;
+  background: $lightergray;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: .1em solid gray;
+  margin-bottom: 2em;
+  border: none;
+  padding-top: 12px;
+}
+
+div.billpay {
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+div#ondemand {
+  width: 100%;
+}
+
+button#ondemand {
+  background: white;
+  width: 100%;
+  margin-left: 0%;
+  line-height: 3;
+}
+
+#billpay-meta {
+  margin-bottom: 0px;
+}
+
+.billpay-danger {
+  padding-left: 24px;
+}
+
+p.billpay-header {
+  font-family: $sansserifbold;
+  font-size: 15px;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
+
+button.quickpay {
+  width: 100%;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+}
+
+button.billpay {
+  width: 15%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p.carousel {
+  text-align: left;
+  margin-top: 18px;
+}
+
+h2.rebates {
+  border: none;
+  border-bottom: .1em solid black;
+  padding-bottom: .2em;
+}
+
+rebate div.header {
+  border: none;
+}
+
+div.chart {
+  height: 30em;
+  width: 100%;
+  background: white;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+
+div.status-counter {
+  font-family: $serif;
+  font-size: 28px;
+  padding-left: 24px;
+  
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+div.gold-bottom {
+  border-bottom: .1em solid #DAAC45;
+}
+
+.summary-nickname:hover {
+  text-decoration: underline
+}
+
+footer {
+  padding-left: 30%;
+  margin-right: 10%;
+  float: bottom;
+  display: inline-block;
+}
+
+div.row.footer {
+  padding-top: 400px;
+}
+
+div.header {
+  cursor: pointer;
+}
+
+h2.quickpay:hover {
+  color: $btngold;
+}
+
+i.summary {
+  z-index: 50;
+  width: 30px;
+}
+
+.sub-nav {
+  height: 109px;
+  margin-bottom: 24px;
+}
+
+.corner-nav {
+  float: right;
+}
+
+ul#nav {
+  margin-top: 30px;
+}
+
+
+.corn-nav-items {
+  padding-top: .3em;
+  font-size: .8em;
+}
+
+ul.dropdown-menu {
+  width: 100%;
+}
+
+input.check {
+  left: 0;
+}
+
+ul.myteam {
+  padding: 0% 5% 5% 5%;
+  margin: 0; 
+  border-bottom: .1em solid #DDDDDD;
+}
+
+.btn-raven {
+  background-color: $btngold;
+  color: white;
+  border-radius: 0;
+  padding: 1em;
+  font-size: 1.25em;
+  width: 10rem;  
+}
+
+.gold-btn {
+  color: white;
+  background-color: $btngold;
+  height: 3.5rem;
+  font-size: 1.4rem;
+  border-radius: 0px;
+  border: none;
+  margin-right: .2rem;
+  width: 47.5%;
+}
+
+.gold-btn-billpay {
+  color: white;
+  background-color: $btngold;
+  height: 3.5rem;
+  font-size: 14px;
+  border-radius: 0px;
+  border: none;
+  margin-left: 5%;
+  width: 45%;
+}
+
+.gold-btn-summary {
+  color: white;
+  background-color: #DAAC45;
+  height: 3.5rem;
+  font-size: 1.4rem;
+  border-radius: 0px;
+  border: none;
+  margin-right: .2rem;
+  width: 200px;
+}
+
+.gold-btn:hover {
+  color: white;
+  background-color: $btnhover;
+}
+
+.gold-btn:active {
+  color: white;
+  background-color: $btnhover;
+  box-shadow: 1px solid gray;
+}
+
+.gold-btn:focus {
+  color: white;
+  background-color: $btngold;
+  box-shadow: 1px solid gold;
+}
+
+.gold-btn:disabled {
+  background-color: $btndisabled;
+}
+
+small.gold {
+  color: $btngold;
+}
+
+.status-total {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+div.summary-control {
+  padding-left: 48.7%;
+  color: $btngold;
+  font-size: 14px;
+  background: #fafafa;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  padding-bottom: 12px;
+}
+
+div.quickpay-control {
+  padding-left: $arrowposition;
+  color: $btngold;
+  font-size: 14px;
+  background: white;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+div.sc-control {
+  padding-left: 52.5%;
+  color: $btngold;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+div.myteam-control {
+  padding-left: $arrowposition;
+  color: $btngold;
+  font-size: 14px;
+  background: white;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+div.btn-myteam {
+  margin-top: 21px;
+  margin-bottom: 1rem;
+}
+
+div.myteam-thumbs {
+  width: 100%;
+  margin-top: 2.5em;
+}
+
+div.myteam-info {
+}
+
+#main-thumb {
+  height: 162px;
+  width: 162px;
+  background: gray;
+  background-image: url("../img/team1.png");
+  background-size: 100% 100%;
+}
+
+p.myteam {
+  font-size: 14px;
+  font-family: $sansserif;
+  font-weight: bold;
+}
+
+#thumb1, #thumb2, #thumb3 {
+  background: black;
+  height: 52px;
+  width: 52px;
+  float: left;
+  margin-right: 3px;
+  margin-top: 2px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+div.myteam-bar {
+  width: 115%;
+  margin-left: 0px;
+}
+
+#thumb1 {
+  background-image: url("../img/team2.png");
+}
+
+#thumb2 {
+  background-image: url("../img/team3.png");
+}
+
+#thumb3 {
+  background-image: url("../img/team4.png");
+}
+
+div.login {
+  height: 40em;
+  margin-top: 10em;
+}
+
+div#login-img {
+  height: 20em;
+  width: 100%;
+  background-color: black;
+  margin-bottom: 5em;
+  margin-top: 2em;
+}
+
+div.myteam-chevrons {
+  height: 10px;
+  width: 5px;
+  float: left;
+  margin-left: 8px;
+  padding-right: 12px;
+  line-height: 1.427px;
+  padding-top: 15px;
+  cursor: pointer;
+}
+
+div.account {
+  margin-right: 3rem;
+  margin-left: 3rem;
+  background: #fafafa;
+}
+
+
+i.fa.fa-angle-down {
+  font-size: 20px;
+  color: gray;
+  float: right;
+  line-height: 2;
+  padding-right: 9px;
+}
+
+.fa-angle-left {
+  font-size: 44px;
+  display: inline-block;
+  color: lightgray;
+  line-height: 3.5;
+  padding-left: 24px;
+  cursor: pointer;
+}
+
+.fa-angle-right {
+  font-size: 44px;
+  display: inline-block;
+  color: lightgray;
+  line-height: 3.5;
+  padding-right: 39px;
+  cursor: pointer;
+}
+
+i.fa.fa-chevron-up {
+  font-size: 15px;
+  color: $btngold;
+  line-height: 2.2;
+  cursor: pointer;
+}
+
+p.trans-month {
+  font-size: 18px;
+  color: $primaryblack;
+  font-family: $sansserif;
+  padding-right: 20px;
+}
+
+i.fa.fa-caret-right {
+  color: $btngold;
+  float: left;
+  line-height: 1.427;
+  position: absolute;
+  margin-top: 15px;
+}
+
+p.recurrence {
+  font-size: 15px;
+  font-family: $sansserif;
+}
+
+i.fa.fa-caret-right.transfer {
+  color: gray;
+  float: left;
+  line-height: 1.427;
+  position: absolute;
+  margin-top: 15px;
+}
+
+div.search-box.transfer {
+  margin-top: -10px;
+  
+}
+
+div.trans-edit {
+  padding-right: 12px;
+}
+
+.fa-chevron-right {
+  padding-left: .5em;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+ul.login {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0; 
+}
+
+p.remember-me {
+  display:inline-block;
+  margin-left: .5em;
+}
+
+li.login {
+  width: 100%;
+  padding-top: 1em;
+}
+
+li.login input {
+  width: 100%;
+  padding: 1em;
+}
+
+li.login input.check {
+  padding: 1em;
+  width: auto;
+  
+}
+
+a {
+  cursor: pointer;
+}
+
+a.white-link {
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  font-family: $sansserifthin;
+}
+
+a.nav-corner {
+  color: white;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  font-family: $sansserifthin;
+}
+
+.nav > li > a.white-link:hover {
+  text-decoration: none;
+  background: $frbgreen;
+}
+
+.nav > li > a {
+  padding-right: 10%;
+  white-space: nowrap;
+}
+
+a.gold-link {
+  color: #DAAC45;
+}
+
+.nav-logo {
+  display: inline-block;
+  margin-top: -16px;
+  width: 186px;
+  height: 30px;
+  background-image: url(../img/frb-logo-sequoia.png);
+  
+}
+
+a.gold-link-sm {
+  color: #DAAC45;
+  font-size: 10px; 
+}
+a.footer-links {
+  padding-right: 1em;
+  text-decoration: underline;
+  color: black
+}
+
+div.accounts-gutter {
+  min-height: 106px;
+}
+
+.footer-box {
+  border: .1em solid black;
+  font-style: bold;
+  padding: 1em;
+}
+
+
+div.horizontal-gutter {
+  height: 46px;
+  /*min-height: 46px;*/
+}
+
+div.link {
+  cursor: pointer;
+}
+
+div.chart {
+  padding-left: 5%;
+}
+
+div.carousel {
+  border-left: .1em solid lightgray;
+  border-right: .1em solid lightgray;
+  border-bottom: .1em solid lightgray;
+}
+
+.caret-gold {
+  color: $btngold;
+}
+
+div.account-meta {
+  min-height: 100px;
+  float: right;
+  min-width: 250px;
+}
+
+div.available {
+  width: 60%;
+  display: inline-block;
+  text-align: right;
+  border-right: .1em solid lightgray;
+  padding-right: 12px;
+}
+
+div.current {
+  width: 40%;
+  display: inline-block;
+  float: right;
+  padding-left: 12px;
+  text-align: left;
+}
+
+p.acct-meta-header {
+  font-size: 18px;
+  font-family: $serif;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+h4.acct-meta-balance {
+  font-size: 24px;
+  color: $primaryblack;
+  font-family: $sansserifbold;
+  padding-bottom: 5px;
+  padding-top: 0px;
+  margin-top: -5px;
+}
+
+.fa.fa-bars {
+  position: absolute;
+  float: right;
+  display: inline;
+  margin-left: -24px;
+  margin-top: 15px;
+  color: lightgray;
+}
+
+.fa.fa-caret-down {
+  font-size: 14px;
+  color: lightgray;
+  float:right;
+  position: absolute;
+  margin-top: 26px;
+  margin-left: -22px;
+  display: none;
+}
+
+.fa.fa-caret-up {
+  font-size: 14px;
+  color: lightgray;
+  float: right;
+  position: absolute;
+  margin-top: 4px;
+  margin-left: -22px;
+  display: none;
+}
+
+li.summary:hover {
+}
+
+p.billpay-body {
+  font-size: 16px;
+}
+
+small.pref {
+  display: inline;
+  float: bottom;
+}
+
+h2.transfers {
+  line-height: 2;
+}

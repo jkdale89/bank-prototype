@@ -1,0 +1,41 @@
+<div class="row top-nav">
+  <div class="pull-left">
+    <a ng-href="#/main/{{awesome? 'awesome' : null}}"><span ng-class="awesome ? 'awesome-logo' : 'nav-logo'"></span></a>
+  </div>
+  <ul class="list-unstyled nav-pills corner-nav">
+    <li class="corn-nav-items"
+    style="margin-right: 20px"
+    ng-mouseenter="help = !help"
+    ng-mouseleave="help = !help">
+      <a class="nav-corner">{{firstNavOption.name}}</a>
+      <span class="caret help"></span>
+      <div class="help"
+           ng-hide="!help">
+        <div class="row"
+             ng-repeat="item in firstNavOption.items"
+             ng-style="item.separator ?
+             {'border-bottom' : '.1em solid lightgray'} : ''">
+          <p class="body">{{item.title}}</p>
+        </div>
+      </div>
+    </li>
+     <li class = "corn-nav-items"
+      style="margin-right: 20px;"
+      ng-mouseenter="settings = true"
+      ng-mouseleave="settings = false">
+      <a class = "nav-corner" ng-init="help = false">{{secondNavOption.name}}</a>
+      <span style="margin-left: 55px" class = "caret help"></span>
+      <div style="white-space: nowrap" class = "nav-settings" ng-hide="!settings">
+        <div class="row secondNavOption" ng-repeat="item in secondNavOption.items" ng-style="item.separator ?
+        {'border-bottom' : '.1em solid lightgray'} : ''">
+          <a class="body navmenu-link"
+            ng-href="#/{{item.urlAlias}}/{{awesome ? 'awesome' : null}}">{{item.title}}
+          </a>
+        </div>
+      </div>
+    </li>
+    <li class = "corn-nav-items" id="signout">
+      <a id="signout" style="color: white"><span class = "glyphicon glyphicon-lock" style="color:white"></span>&nbsp;&nbsp;&nbsp;SIGN OUT</a>
+    </li>
+  </ul>
+</div>

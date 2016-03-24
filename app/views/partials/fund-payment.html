@@ -1,0 +1,169 @@
+<!-- MAKE A PAYMENT OR TRANSFER SCREEN -->
+<!-- INPUT FIELDS FOR SCHEDULING A TRANSFER AND PAYMENT-->
+<!-- FIRST FORM -->
+  <div class="content-panel-fund-transfer" ng-class="collapse ? 'nh' : 'ft'">
+    <div style="position: relative">
+      <div ng-show="spinner" class="spinner-sc"></div>
+    </div>
+
+    <div ng-class="!collapse? 'ft' : 'nh'; fadeOut ? 'opacity0' : 'noOpacity'" ng-hide="hidePayment" >
+      <h5>Make a payment</h5>
+      <p class="body" style="margin-bottom: 26px;">All fields are required unless noted as optional.</p>
+      <!-- FIRST FORM -->
+      <div class="form-field-header">To</div>
+      <div ng-class = "fromRequiredError ? 'errorBorder' : '' ; exceedsBalanceError ? 'errorBorderYellow' : '' ">
+
+        <account-dropdown
+          accounts='paymentSinks'
+          selection='paymentSink'
+          placeholder="Please Select">
+        </account-dropdown>
+
+      <!-- ERROR MESSAGING - FIRST INPUT -->
+      <div style="margin-top: 0px" class='error-message' ng-if='fromRequiredError'>
+        A to is required first.
+      </div>
+      <!-- END FIRST FORM -->
+
+    <!-- SECOND FORM -->
+    <div class="form-field-header">From</div>
+    <div ng-class = "toRequiredError ? 'errorBorder' : '' ">
+        <account-dropdown
+          atmRebate="true"
+          accounts='paymentSources'
+          selection='paymentSource'
+          placeholder="Select account">
+        </account-dropdown>
+      <!-- <ng-transclude></ng-transclude> -->
+    </div>
+
+    <!-- ERROR MESSAGING - SECOND INPUT -->
+    <div style="margin-top: -5px;" class='error-message' ng-if='toRequiredError'>
+      A from is required.
+    </div>
+
+      <!-- AMOUNT FIELD INPUT -->
+      <div class="form-field-header">Amount</div>
+      <div ng-if="transferMortgage">
+        <p style="margin-top: 10px; font-size: 12px" class="body2">
+          Amounts greater than regular payment <br> may be applied to fees &amp; principal.
+        </p>
+      </div>
+      <div style="position: relative">
+        <p class = "pull-left body12 dollar">$</p>
+        <input
+          style="padding-left: 30px;"
+          ng-class = "amountRequiredError ? 'errorBorder' : exceedsBalanceError ? 'errorBorderYellow' : '' "
+          type = "number"
+          min="0.01"
+          step="0.01"
+          style="width: 100%"
+          ng-model="amount"
+          required
+          class="fund-transfer-input quickpay-drop"
+        />
+      </div>
+      <!-- AMOUNT ERROR MESSAGING -->
+      <div class='error-message' ng-if='amountRequiredError'>An amount is required.</div>
+      <div class='error-message-yellow' ng-if='exceedsBalanceError'>
+        Payment exceeds the available balance of the selected account.
+        You may use the line of credit associated with this account to complete this transfer.
+        Fees may apply.
+      </div>
+      <!-- END AMOUNT INPUT FIELD -->
+
+
+      <!-- DATE FORM -->
+      <div class="form-field-header">Deliver payment by</div>
+      <div></div>
+      <!-- IF DATE REQUIRED ERROR, MAKE THE BORDER RED! -->
+      <div
+        ng-model="paymentDate"
+        class="row fund-transfer--picker"
+        ng-class="(dateRequiredError || pastDateError)? 'errorBorder' : '' ">
+        <input
+          type="text"
+          data-date-format="m/dd/yyyy"
+          data-language="en"
+          data-range="false"
+          placeholder="mm/dd"
+          data-ng-model="paymentDate"
+          airdatepicker
+        />
+        <span class="fa fa-calendar-o pull-right"></span>
+      </div>
+    </div>
+    <!-- DATE ERROR MESSAGING -->
+    <div class='error-message' ng-if='dateRequiredError'>A valid date is required.</div>
+    <div class='error-message' ng-if='pastDateError'>Date cannot be in the past.</div>
+    <!-- END DATE FORM -->
+
+    <!-- ADD MEMO FORM -->
+    <div ng-if="paymentSink && (paymentSink.paytype == 'paper')">
+      <div class="row">
+        <div ng-hide="showMemo" style="margin-top: 10px;">
+          <div>
+            <a class="link6"
+              style="margin-left: 2px;"
+              ng-click="showMemo = true">Add memo</a>
+            <span class="body4">(optional)</span>
+          </div>
+        </div>
+        <div ng-show="showMemo">
+          <span>
+            <div class="form-field-header">
+              Memo<span class="body4">&nbsp;(optional)</span>
+            </div>
+            <div class="body4" style="padding: 3px 0 3px 2px;">
+              Add up to 32 characters to the paper check payment.
+            </div>
+          </span>
+          <input type="text" style="width: 100%;" autofocus/>
+        </div>
+      </div>
+    </div>
+
+    <div class='action-area'>
+      <a class='link3' ng-click="collapse = true">Cancel</a>
+      <button class="btn btn-gold short" ng-click="confirmPayment(paymentDate); isToday(paymentDate)">
+        Schedule payment
+      </button>
+    </div>
+  </div>
+  <!-- END SCHEDULE SCREEN   -->
+
+  <!-- CONFIRMATION SCREEN -->
+  <div class="bg-white" ng-class="fadeIn? 'noOpacity' : 'opacity0'" style="padding-top: 1em; border-left" ng-hide="!confirmationBox">
+    <div class="confirmation-box text-center">
+      <div style="margin-bottom: 18px" class="circle"><i class = "fa fa-check"></i></div>
+      <h5 style="margin-bottom: 12px">Payment scheduled</h5>
+      <p style="font-size: 18px" class = "body2">93555-092925</p>
+      <p class = "bodygray2" style="margin-top: -10px">Confirmation</p>
+      <!-- <p class = "body2">{{dt | date:'medium'}}</p>
+       <p class = "bodygray2" style="margin-top: -15px">Expected Delivery</p> -->
+    </div>
+    <div class = "text-center">
+      <p class = "body5">{{amount | currency}}</p>
+      <p class = "bodygray2 inline">to&nbsp;&nbsp;</p>
+      <p class = "body8 inline">{{paymentSink.name}} {{paymentSink.number}}</p>
+      <div style="margin-top: -10px">
+        <p class = "bodygray2 inline">from&nbsp;&nbsp;</p>
+        <p ng-if="!atmRebate" class = "body8 inline">{{secondAccount.nickname}} {{secondAccount.number}}</p>
+        <p ng-if="atmRebate" class = "body8 inline">ATM Rebate Checking {{secondAccount.number}}</p>
+      </div>
+      <div style="margin-top: 10px">
+        <p class = "bodygray2">Deliver by</p>
+        <p style = "margin-top: -10px" class = "body2">{{paymentDate | asDate | date:"MMMM d"}}</p>
+      </div>
+      <br>
+      <button
+        style="width: 95%; margin-top: 0px; margin-bottom: 20px"
+        class = "btn btn-gold short"
+        ng-click="resetFormsPayment(paymentSink, secondAccount, amount, paymentDate)">
+        Done
+      </button>
+    </div>
+  </div>
+  <!-- CLOSE CONFIRMATION SCREEN -->
+</div>
+<!-- CLOSE FUND TRANSFER CONTAINER

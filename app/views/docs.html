@@ -1,0 +1,65 @@
+<div class = "greeting">
+  <h2 class = "section-title">Statements and documents</h2>
+</div>
+
+<main>
+  <gutter></gutter>
+  <div id="statements" class="content-panel btop" style="padding-right: 72px; padding-left: 72px; padding-bottom: 72px;">
+    <div class="row" style="padding-top: 24px; padding-bottom: 12px;">
+      <div class="col-md-3" style="padding-right: 0;">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle">
+            <span class="form-field-filled-in">All documents</span>
+            <img src="./img/dropdown.svg">
+          </button>
+        </div>
+      </div>
+      <div class="col-md-4" style="padding-right: 0;">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle">
+            <span class="form-field-filled-in">All accounts</span>
+            <img src="./img/dropdown.svg">
+          </button>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle">
+            <span class="form-field-filled-in">Last 7 years</span>
+            <img src="./img/dropdown.svg">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class = "row" style="padding-top: 24px;">
+      <div class = "row table-header">
+        <span class = "col-md-2">Date&nbsp;<i class="fa fa-caret-down"></i></span>
+        <span class = "col-md-5">Account</span>
+        <span class = "col-md-5">Document</span>
+      </div>
+      <div class="separator"></div>
+      <div class = "row documents no-wrap" ng-repeat = "doc in Accountdocs | orderBy: date">
+        <span class = "col-md-2 body2">{{doc.date}}</span>
+        <span class = "col-md-5">{{Accounts[doc.account_id].nickname}}</span>
+        <span class = "col-md-5">{{doc.name}}
+          <span style="float: right;">
+            <span ng-if="doc.has_html">
+              <span class="link6">HTML</span>
+              <span style="color: lightgray;">&nbsp;|&nbsp;</span>
+            </span>
+            <span class="link6">PDF</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<aside style="margin-top: -22px">
+  <gutter></gutter>
+  <ondemand></ondemand>
+  <contact></contact>
+  <myteam></myteam>
+  <rebate></rebate>
+</aside>

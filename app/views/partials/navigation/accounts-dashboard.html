@@ -1,0 +1,123 @@
+<div class="row" style="margin-top: -14px;">
+  <div id="accountsearch" class="dropdown" style="margin-top: 20px;">
+    <button class="btn dropdown-toggle accountselector"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="true">
+      <h6>
+        {{current_account.nickname}}
+        <img src="./img/dropdown.svg" style="margin-top: 10px;">
+      </h6>
+      <div class="row dropdown-meta">
+        <span class="pull-left body4">
+          {{current_account.is_external ? current_account.subtitle : current_account.acct_no}}
+        </span>
+        <span class="pull-right link2">{{current_account.balance | currency}}</span>
+      </div>
+    </button>
+    <ul class="dropdown-menu"
+        aria-labelledby="dropdownMenu1"
+        style="width: 100%;">
+      <li ng-repeat-start="cat in Buckets | filter: {hide_from_select: '!true'} | orderBy: 'id'"></li>
+      <li class="account-row"
+          ng-class="cat.hidden ? 'accountOpen' : ''"
+          ng-if="!cat.hide_in_select"
+          ng-repeat="account in Accounts | filter: {accounttype: cat.name}">
+        <a class="dropdown-nickname"
+            href="#/accounts/{{account.acct_no.substr(1)}}">{{account.nickname}}</a>
+        <div class="row dropdown-meta">
+          <span class="pull-left body4">
+            {{account.is_external ? account.subtitle : account.acct_no}}
+          </span>
+          <span class="pull-right link2">{{account.balance | currency}}</span>
+        </div>
+      </li>
+      <li ng-repeat-end=""
+          ng-class="{divider: !$last}"></li>
+    </ul>
+  </div>
+
+  <div class="account-meta">
+    <div class="row">
+      <div class="col-md-6 text-left" style="padding-left: 24px;">
+        <div class="row last-updated" style="padding-bottom: 6px;">
+          <div class="body3"
+              ng-hide="current_account.is_loans">
+            Last updated {{date | date:'M/dd/yy'}}
+          </div>
+        </div>
+        <div class="row available-balance" style="border-right: .1em solid #d9d9d9;">
+          <div ng-hide="current_account.is_loans">
+            <div class="body2"
+                style="margin-bottom: -6px; white-space: nowrap;">
+              {{current_account.is_external ? 'Available Balance' : 'Funds Available'}}
+              <i class="fa fa-question-circle"
+                 data-html="true"
+                 data-toggle="tooltip"
+                 title="The amount of money in your account available for immediate use.">
+              </i>
+            </div>
+            <div class="body6">
+              <span class="sup">$</span>
+              {{current_account.available_balance | number: 0}}
+              <span class="sup">{{current_account.available_balance | number: 2 | cents}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row pending-credit">
+          <div class="body3"
+              ng-show="current_account.balance - current_account.available_balance != 0 && !current_account.is_loans">
+            {{current_account.balance - current_account.available_balance | currency}} Pending
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row last-updated">
+          <div class="body3"
+              ng-show="current_account.is_loans">
+            Last updated {{date | date:'M/dd/yy'}}
+          </div>
+        </div>
+        <div class="row available-balance">
+          <div class="body2"
+            style="margin-bottom: -6px; white-space: nowrap;">
+            {{current_account.is_loans ? 'Principal Balance' : 'Current Balance'}}
+            <i class="fa fa-question-circle"
+               data-html="true"
+               data-toggle="tooltip"
+               title="The amount of money in your account at the start of a business day,
+                      including all deposits and withdrawals posted the previous night, 
+                      whether or not the funds have been collected.">
+            </i>
+          </div>
+          <div class="body6">
+            <span class="sup">$</span>
+            {{current_account.balance | number: 0}}
+            <span class="sup">{{current_account.balance | number: 2 | cents}}</span>
+          </div>
+        </div>
+        <div class="row pending-credit">
+          <div class="body3"
+              ng-show="current_account.is_loc">
+            Available Credit {{current_account.balance | currency}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 6px;">
+      <div class="col-md-12" style="padding-left: 24px;">
+        <div class="body3"
+            ng-show="current_account.has_odloc">
+          Available Overdraft {{current_account.acct_no}} {{Accounts[current_account.odloc_account].available_balance | currency}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pull-right"
+    style="position: relative; margin-top: -30px; padding-right: 5px;">
+  <img src="./img/Q2_Envelope.svg"
+    style="padding-right: 5px;">
+  <img src="./img/Q2_Print.svg">
+</div>

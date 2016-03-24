@@ -1,0 +1,22 @@
+<!-- Header and Phone Numbers / Redirects -->
+<div ng-click="hide.myteam = !hide.myteam">
+  <div class = "content-panel panel-head disclosing" ng-class="{'gold-bottom': !hide.myteam}">
+    <h2 class = "myteam" ng-cloak>My {{bankType.short}} team</h2>
+  </div>
+  <div class="chevron-down chevron-down-my" ng-hide="!hide.myteam"></div>
+</div>
+<div class="myteam-initial" style="background: white; border-left: .1em solid lightgray; border-right: .1em solid lightgray; border-bottom: .1em solid lightgray;"
+    ng-class="!hide.myteam ? 'myteam-expanded-alt' : ''">
+  <div class="row" id="myteamalt" style="cursor: pointer; padding-left: 24px; padding-right: 24px; padding-bottom: 12px; border-bottom: .1em solid #f6f6f6"
+      ng-style="$last? {'border-bottom': 'none'} : ''"
+      ng-click="openMyTeamModal($index)"
+      ng-repeat="banker in myteam | orderBy : 'name'">
+    <h3 class="link5" id="myteamalt">{{banker.name}}</h3>
+    <div class="body">{{banker.title}}</div>
+  </div>
+
+  <div class="chevron-up chevron-up-sc"
+      style="margin-top: 12px"
+      role="button"
+      ng-click="hide.myteam = true"></div>
+</div>

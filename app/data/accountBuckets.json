@@ -1,0 +1,57 @@
+[{
+        "id": 0,
+        "name": "Checking, Savings & CDs",
+        "token": "CheckingSavingsCDs",
+        "balance_meta": "available",
+        "user": 0,
+        "accounts": ["0", "3"],
+        "num_accounts": 2,
+        "created_at": "1/06/15",
+        "updated_at": "3/06/15",
+        "default_balance": 629264.52,
+        "hidden": false
+    },
+
+    {
+        "id": 1,
+        "name": "Investments",
+        "token": "Investment",
+        "user": 0,
+        "accounts": ["4", "5", "10"],
+        "num_accounts": 3,
+        "created_at": "1/06/15",
+        "updated_at": "3/06/15",
+        "default_balance": 3467092.05,
+        "hide_from_select": true,
+        "hidden": true
+    },
+
+    {
+        "id": 2,
+        "name": "Loans",
+        "token": "Loans",
+        "balance_meta": "owed",
+        "user": 0,
+        "accounts": ["6", "7", "8"],
+        "num_accounts": 3,
+        "created_at": "1/06/15",
+        "updated_at": "3/06/15",
+        "default_balance": 1814416.45,
+        "hidden": true
+    },
+
+
+    {
+        "id": 3,
+        "name": "External Accounts",
+        "token": "External Accounts",
+        "balance_meta": "owed",
+        "user": 0,
+        "accounts": ["9"],
+        "num_accounts": 1,
+        "created_at": "1/06/15",
+        "updated_at": "3/06/15",
+        "default_balance": "",
+        "hidden" : true
+    }
+]

@@ -1,0 +1,33 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">Cancel {{reviewTerm? reviewTerm : 'payment'}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="confirmation-box text-center">
+      <!-- <div style="margin-bottom: 18px" class="circle"><i class = "fa fa-check"></i></div> -->
+      <h5 style="margin-bottom: 12px">{{amount? 'amount' : 6000 | currency}}</h5>
+      <p class = "body2">{{reviewTerm=='transfer'? 'From' : 'To'}}</p>
+      <p class = "bodygray2">Confirmation ID</p>
+      <p class = "body2">{{reviewTerm=='payment'? 'To' : 'From'}}</p>
+      <p class="body2"></p>
+      <p class = "bodygray2">Expected Delivery</p>
+    </div>
+    <div class = "text-center">
+      <p class = "body15">{{amount | currency}}</p>
+      <p class = "bodygray2 inline">From&nbsp;&nbsp;</p>
+      <p class = "body8 inline">{{secondAccount.nickname}} {{secondAccount.number}}</p>
+      <br>
+      <p class = "bodygray2 inline">To&nbsp;&nbsp;</p><p class = "body8 inline">{{firstAccount.name}} {{firstAccount.number}}</p>
+      <br>
+      <button style="width: 75%; margin-top: 15px" class = "btn btn-gold link4" ng-click="collapseFundTransfer = true">Done</button>
+    </div>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <a class = "link3 confirm-move" ng-click="cancel()" style="margin-right: 100px;">Cancel</a>
+    <button type="button" class="btn btn-gold" ng-click="ok()">Confirm</button>
+  </div>
+</div>

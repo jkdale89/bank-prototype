@@ -1,0 +1,425 @@
+<script>
+  $('.bg-white-nav').css("background-color", "transparent", "border-bottom", "none");
+  $('.nav-wrapper-dropdown').css("min-width", "0%");
+  window.scrollTo(0, 0);
+</script>
+
+<main ng-controller='AccountsController'>
+  <accounts-dashboard></accounts-dashboard>
+  <div class="content-panel panel-head row accounts gold-bottom" ng-cloak>
+    <div class="text-center {{current_account.is_external ? 'col-md-12' : 'col-md-6' }}"
+      ng-class="{details: showAccountDetails}"
+      ng-click="showAccountActivity = true; showAccountDetails = false">
+      <h2>Activity</h2>
+    </div>
+    <div class="col-md-6 text-center details accounts"
+      ng-class="{details: showAccountActivity}"
+      ng-hide="current_account.is_external"
+      ng-click="showAccountActivity = false; showAccountDetails = true">
+      <h2>Details &amp; Documents</h2>
+    </div>
+  </div>
+
+  <div class="accounts-control content-panel" ng-show="showAccountActivity" ng-cloak>
+    <div class="row" ng-controller="TransactionFilterController">
+      <div class="row" style='padding-top: 12px; padding-bottom: 24px'>
+        <button class='btn btn-light-gold toggle-able' ng-click="toggleFilter()" ng-class="{'selected': displayFilters}">
+          Filter <span class="glyphicon glyphicon-filter" style='padding-left: 1em;'></span>
+        </button>
+        <button class='btn btn-light-gold toggle-able' ng-click="toggleSearch()" ng-class="{'selected': displaySearch}">
+          Search <span class="glyphicon glyphicon-search" style='padding-left: 1em;'></span>
+        </button>
+        <button class="btn btn-default btn-light-gold" style='float: right; width: 86px; min-width: 86px; height: 27px; padding-top: 4px; padding-left: 7px; font-size: 13px;'>
+          <span class="glyphicon glyphicon-download" style='padding-right: 1em;'></span >Export
+        </button>
+      </div>
+      <div class="row filter-controls" ng-if='displayFilters'>
+        <div class="col-md-5">
+          <span class="row">
+            <span class="col-md-2 filter-label">Date</span>
+            <span class="col-md-10">
+              <input type="text"
+                     data-date-format="m/dd/yyyy"
+                     data-language="en"
+                     data-range="true"
+                     placeholder="All (default)"
+                     data-ng-model="transferDate"
+                     style="display: block; width: 100%;"
+                     airdatepicker
+              />
+              <span class="fa fa-calendar-o pull-right"></span>
+            </span>
+          </span>
+          <span class="row">
+            <span class="col-md-2 filter-label">Type</span>
+            <span class="col-md-10 dropdown">
+              <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="form-field-filled-in">All</span>
+                <img src="./img/dropdown.svg">
+              </button>
+            </span>
+          </span>
+        </div>
+        <div class="col-md-7">
+          <span class="row">
+            <span class="col-md-5 filter-label">Amount</span>
+            <span class="col-md-3">
+              <div style="position: relative">
+                <p class = "pull-left body12 dollar">$</p>
+                <input type="textarea" style="padding-left: 30px;" placeholder="0.00" />
+              </div>
+            </span>
+            <span class="col-md-1 filter-label" style="padding-right: 0px; text-align: center;">to</span>
+            <span class="col-md-3">
+              <div style="position: relative">
+                <p class = "pull-left body12 dollar">$</p>
+                <input type="textarea" style="padding-left: 30px;" placeholder="0.00" />
+              </div>
+            </span>
+          </span>
+          <span class="row">
+            <span class="col-md-5 filter-label">Check number</span>
+            <span class="col-md-3">
+              <input />
+            </span>
+            <span class="col-md-1 filter-label" style="padding-right: 0px; text-align: center;">to</span>
+            <span class="col-md-3">
+              <input />
+            </span>
+          </span>
+          <span class="row">
+            <span class="col-md-5 filter-label">Category</span>
+            <span class="col-md-7 dropdown">
+              <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="form-field-filled-in">All</span>
+                <img src="./img/dropdown.svg">
+              </button>
+            </span>
+          </span>
+          <span class="row">
+            <span class="col-md-4"></span>
+            <span class="col-md-4" style="padding-top: 12px;">
+              <a class="link3 pull-right">Reset</a>
+            </span>
+            <span class="col-md-4">
+              <button class="btn btn-gold pull-right" style="width: 110px;">Apply</button>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div ng-if='displaySearch' class="row search-controls">
+        <span style="padding-top: 12px;">Search</span>
+        <span style="padding-right: 15px; padding-left: 15px; width: 100%;">
+          <input id="tx-search-field" style="width: inherit;" type="search" placeholder="&quot;AT&amp;T&quot;, &quot;check&quot; or &quot;5.00&quot;" />
+        </span>
+        <span>
+          <button class="btn btn-gold">Search</button>
+        </span>
+      </div>
+    </div>
+    <div class="bg-white row table-header transactions-row">
+      <div class="col-md-2 text-left">Date <i class="fa fa-caret-down"></i></div>
+      <div class="col-md-4 text-left">Description</div>
+      <div class="col-md-3 text-right">Amount</div>
+      <div class="col-md-3 text-right">Balance</div>
+    </div>
+    <div class="separator separator-transactions"></div>
+
+    <div class="transactions-container" ng-repeat="transaction in Transactions | filter : {accountId : current_account.id }">
+      <span title="View recent transactions" style="margin-left: -36px;" class="caret trans-details closed"
+        ng-click="transDetail = !transDetail; closed = !closed"
+        ng-class="closed? 'caret-rotate' : ''"></span>
+      <div class="transactions-row" ng-class="closed ? 'transactions-row-expanded' : '' " ng-click="closed = !closed">
+
+        <!--TODO - REPEAT FOR EACH DISTINCT DATE -->
+        <div class="row trans-details">
+          <div class="col-md-2 table-date">
+            <p class="body2">{{transaction.created_at}}</p>
+          </div>
+          <div class="col-md-4 pull-top">
+            <p class="body" style="margin-bottom: 0px">{{transaction.description}}</p>
+            <span class="transaction-category">{{transaction.category}}</span>
+          </div>
+          <div class="col-md-3">
+            <p class="body11 text-right">{{transaction.amount}}</p>
+          </div>
+          <div class="col-md-3">
+            <p class="text-right body12">{{transaction.balance}}</p>
+          </div>
+        </div>
+        <div class="row" style="padding-top: 21px;">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <div class="row trans-detail-expanded">
+              <div>
+                <h4 class="inline" style="opacity: .7">Transaction</h4>
+                <span class="body2 inline" style="box-shadow: 0 -3px 0 #DAAC45 inset; margin-left: 10px; margin-bottom: 2px; padding-left: 8px; padding-right: 8px;">Summary</span>
+                <span class="pull-right" style="padding-top: 9px;">
+                  <a><img src="./img/Q2_splitter.svg" /></a>
+                  <a><img src="./img/Q2_Envelope.svg" /></a>
+                  <a><img src="./img/Q2_Print.svg" /></a>
+                </span>
+              </div>
+              <div style="width: 600px; margin-top: 0px;" class="separator"></div>
+              <div class="row body4">
+                <div class="txlabel">Category:</div>
+                <div>{{transaction.category}}
+                  <img src="./img/Q2_Pencil.svg" />
+                </div>
+                <div class="txlabel">Description:</div>
+                <div>{{transaction.description}}
+                  <img src="./img/Q2_Pencil.svg" />
+                </div>
+
+                <div class="txlabel">Statement description:</div>
+                <div>{{transaction.statement_description}}</div>
+
+                <div class="txlabel">Date:</div>
+                <div>{{transaction.created_at}}</div>
+
+                <div class="txlabel">Type:</div>
+                <div>Withdrawal</div>
+
+                <div class="txlabel">Amount:</div>
+                <div>{{transaction.amount}}</div>
+              </div>
+              <div ng-if="current_account.account_type == 'Mortgage'" class="mortgage-details body9">
+                <div class="separator"></div>
+                <div class="txlabel">Principal amount:</div>
+                <div>$xx.xx</div>
+                <div class="txlabel">Interest amount:</div>
+                <div>$xx.xx</div>
+                <div class="txlabel">Escrow amount:</div>
+                <div>$xx.xx</div>
+                <div class="txlabel">Transaction fee amount:</div>
+                <div>$xx.xx</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <div id="details-n-documents" class="row content-panel accounts-control" ng-show="showAccountDetails" style="padding: 30px 72px 24px 72px;">
+    <h5>Account Details</h5>
+    <ul class="list-unstyled" style="padding-top: 24px;">
+      <li>
+        <p>{{current_account.nickname}} <span class="link3">Edit nickname</span></p>
+      </li>
+      <li>
+        <p>
+          {{current_account.account_type}}
+          <span class="body4" ng-show="current_account.address_1"><br>{{current_account.address_1}}</span>
+          <span class="body4" ng-show="current_account.address_2"><br>{{current_account.address_2}}</span>
+        </p>
+      </li>
+      <li>
+        <p>
+          <a class="link3" ng-click='showAccountNumber = !showAccountNumber'>
+            {{showAccountNumber ? 'Hide' : 'Show'}} account number
+          </a>
+        </p>
+      </li>
+      <li>
+        <p ng-show="showAccountNumber" class="slide-down">
+          Account Number: <span class="body2">{{current_account.acct_number}}</span>
+        </p>
+      </li>
+      <li ng-show="current_account.routing_string" ng-repeat="routing_no in current_account.routing_string.split('|')">
+        <p>Routing Number: <span class="body2">{{routing_no}}</span>
+          <i class="fa fa-question-circle"
+            data-html="true"
+            data-toggle="tooltip"
+            title="Use this routing number to set up direct deposits,
+            incoming transfers, outgoing payments to other financial institutions,
+            and for all incoming wire transfers.">
+          </i>
+          <div class='tooltip-routing' style="margin-left: 300px" ng-show='routingTooltip0'>
+            <p class='body2'>{{routingTooltip}}</p>
+            <div class='arrow'></div>
+          </div>
+        </p>
+      </li>
+      <li ng-show="current_account.swift_code">
+        <p>Swift code: <span class="body2">{{current_account.swift_code}}</span></p>
+      </li>
+    </ul>
+    <div class="overdraft" ng-show="current_account.has_odloc">
+      <p class="link3">Overdraft {{ Accounts[current_account.odloc_account].acct_no }}</p>
+    </div>
+    <div class="overdraft row" ng-show="current_account.has_auto_debit">
+      <p class="col-md-3">Auto debit:</p>
+      <p class="col-md-4 text-right">{{ Accounts[current_account.auto_debit_account_id].account_type }} {{ Accounts[current_account.auto_debit_account_id].acct_no }}</p>
+    </div>
+    <div>
+      <div class="row">
+        <p class="col-md-3">Interest rate:</p>
+        <p class="col-md-3 text-right">{{current_account.interest_rate}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loans">
+        <p class="col-md-3">APY:</p>
+        <p class="col-md-3 text-right">{{current_account.apy}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loans">
+        <p class="col-md-3">Accrued interest:</p>
+        <p class="col-md-3 text-right">{{current_account.accrued_interest}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc && current_account.account_type === 'Overdraft'">
+        <p class="col-md-3">YTD interest:</p>
+        <p class="col-md-3 text-right">{{current_account.ytd_interest}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.account_type === 'Term Loan' || (current_account.is_loc && current_account.account_type === 'Overdraft')">
+        <p class="col-md-3">Prior year interest:</p>
+        <p class="col-md-3 text-right">{{current_account.lastyear_interest}}</p>
+      </div>
+    </div>
+    <div ng-show="(current_account.is_loans && current_account.account_type === 'Term Loan') || current_account.account_type === 'Mortgage'">
+      <div class="separator separator-summary" style="margin-bottom: 18px; margin-top: 12px;"></div>
+      <div class="row">
+        <p class="col-md-3">Escrow balance:</p>
+        <p class="col-md-3 text-right">{{current_account.interest_rate}}</p>
+      </div>
+      <div class="row">
+        <p class="col-md-3">YTD interest on escrow:</p>
+        <p class="col-md-3 text-right">{{current_account.ytd_escrow_interest}}</p>
+      </div>
+      <div class="row">
+        <p class="col-md-3">Prior year interest on escrow:</p>
+        <p class="col-md-3 text-right">{{current_account.lastyear_escrow_interest}}</p>
+      </div>
+      <div class="row">
+        <p class="col-md-3">YTD escrow taxes:</p>
+        <p class="col-md-3 text-right">{{current_account.ytd_interest}}</p>
+      </div>
+      <div class="row">
+        <p class="col-md-3">Prior year escrow taxes:</p>
+        <p class="col-md-3 text-right">{{current_account.lastyear_escrow_taxes}}</p>
+      </div>
+      <div class="row" ng-show="current_account.account_type === 'Term Loan'">
+        <p class="col-md-3">YTD escrow insurance:</p>
+        <p class="col-md-3 text-right">{{current_account.ytd_escrow_insurance}}</p>
+      </div>
+      <div class="row" ng-show="current_account.account_type === 'Term Loan'">
+        <p class="col-md-3">Prior year escrow insurance:</p>
+        <p class="col-md-3 text-right">{{current_account.lastyear_escrow_insurance}}</p>
+      </div>
+    </div>
+    <div ng-show="current_account.is_loans">
+      <div class="separator separator-summary" style="margin-bottom: 18px; margin-top: 12px;"></div>
+      <div class="row">
+        <p class="col-md-3">Origination date:</p>
+        <p class="col-md-3 text-right">{{current_account.created_at}}</p>
+      </div>
+      <div class="row" ng-show="current_account.account_type === 'Mortgage' || current_account.account_type === 'Term Loan'">
+        <p class="col-md-3">Original loan amount:</p>
+        <p class="col-md-3 text-right">{{current_account.original_amount}}</p>
+      </div>
+      <div class="row" ng-show="current_account.is_loc">
+        <p class="col-md-3">Credit limit:</p>
+        <p class="col-md-3 text-right">{{current_account.credit_limit}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.account_type === 'Overdraft'">
+        <p class="col-md-3">Term:</p>
+        <p class="col-md-3 text-right">{{current_account.term}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.account_type === 'Overdraft'">
+        <p class="col-md-3">Maturity date:</p>
+        <p class="col-md-3 text-right">{{current_account.maturity_date}}</p>
+      </div>
+    </div>
+    <div ng-show="current_account.is_loans">
+      <div class="separator separator-summary" style="margin-bottom: 18px; margin-top: 12px;"></div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Next principal due:</p>
+        <p class="col-md-3 text-right">{{current_account.next_principal_due}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Next interest due:</p>
+        <p class="col-md-3 text-right">{{current_account.next_interest_due}}</p>
+      </div>
+      <div class="row" ng-show="current_account.account_type === 'Mortgage'">
+        <p class="col-md-3">Next escrow due:</p>
+        <p class="col-md-3 text-right">{{current_account.next_escrow_due}}</p>
+      </div>
+      <div class="row" ng-show="current_account.account_type === 'Term Loan'">
+        <p class="col-md-3">Next total escrow due:</p>
+        <p class="col-md-3 text-right">{{current_account.next_total_escrow_due}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Next payment amount:</p>
+        <p class="col-md-3 text-right">{{current_account.next_payment_amount}}</p>
+        <i class="col-md-1 fa fa-question-circle"
+          data-html="true"
+          data-toggle="tooltip"
+          style="padding-left: 4px; padding-top: 3px;"
+          title="Upcoming payment amount which includes principal, interest, and escrow.">
+        </i>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Next payment date:</p>
+        <p class="col-md-3 text-right">{{current_account.next_payment_date}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.account_type === 'Overdraft'">
+        <p class="col-md-3">Grace period ends:</p>
+        <p class="col-md-3 text-right">{{current_account.grace_period_ends}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.account_type === 'Overdraft'">
+        <p class="col-md-3">Total past due:</p>
+        <p class="col-md-3 text-right">{{current_account.total_past_due}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Late charges due:</p>
+        <p class="col-md-3 text-right">{{current_account.late_charges_due}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Fees due:</p>
+        <p class="col-md-3 text-right">{{current_account.fees_due}}</p>
+      </div>
+      <div class="row" ng-show="current_account.is_loc">
+        <p class="col-md-3">NSF fees due:</p>
+        <p class="col-md-3 text-right">{{current_account.nsf_fees_due}}</p>
+      </div>
+      <div class="row" ng-hide="current_account.is_loc">
+        <p class="col-md-3">Total amount due:</p>
+        <p class="col-md-3 text-right">{{current_account.total_amount_due}}</p>
+      </div>
+    </div>
+
+    <div style="max-width: 575px; margin-top: 33px;">
+      <div class="row">
+        <span class="col-md-6" style="padding: 0;">
+          <h5>Statements &amp; Documents</h5>
+        </span>
+        <span class="col-md-6" style="padding: 0;">
+          <a class="link3 pull-right" style="margin-top: 13px;">All statements &amp; tax documents</a>
+        </span>
+      </div>
+      <div class="row" style="padding-top: 24px;">
+        <div class="row documents no-wrap" ng-repeat="accountdoc in Accountdocs | filter : { account_id : current_account.id }">
+          <span>{{accountdoc.name}}</span>
+          <span style="float: right;">
+            <span ng-if="accountdoc.has_html">
+              <span class="link6">HTML</span>
+              <span style="color: lightgray;">&nbsp;|&nbsp;</span>
+            </span>
+            <span class="link6">PDF</span>
+          </span>
+          <div class="separator separator-light-fullwidth"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<aside ng-controller="AccountsController" ng-if="!current_account.is_external">
+  <div style="margin-top: 114px"></div>
+  <ondemand></ondemand>
+  <contact></contact>
+  <myteam></myteam>
+  <rebate></rebate>
+</aside>

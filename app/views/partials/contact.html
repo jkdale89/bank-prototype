@@ -1,0 +1,36 @@
+<!-- Bank Contact Information -->
+<div ng-click="hide.contact = !hide.contact">
+  <div class = "content-panel panel-head disclosing" ng-class="{'gold-bottom': !hide.contact}">
+      <h2 class = "contact" ng-cloak>{{contactTitle}}</h2>
+  </div>
+  <div class="chevron-down chevron-down-my" ng-hide="!hide.contact"></div>
+</div>
+<div class="contact-initial" ng-class="!hide.contact ? 'contact-expanded' : ''">
+  <div class="contact content-panel" style="border-bottom: .1em solid lightgray; padding-top: 21px">
+    <div ng-repeat="option in contactOptions" class="row">
+      <span class="body pull-left">
+        {{option.name}}
+        <span class="glyphicon glyphicon-question-sign"
+          data-html="true"
+          data-toggle="tooltip"
+          title="{{option.tooltipDescription}}">
+        </span>
+      </span>
+      <span class="body pull-right">{{option.phone}}</span>
+    </div>
+    <div class="row" style="margin-bottom: 4px;">
+      <button class="btn btn-gold short pull-right">Message</button>
+    </div>
+    <div class="row">
+      <a class="link3 help pull-right">Go to Help &amp; Support</a>
+    </div>
+    <div class="row">
+      <div class="chevron-up chevron-up-sc"
+          role="button"
+          ng-click="hide.contact = true">
+      </div>
+    </div>
+
+</div>
+
+<gutter></gutter>

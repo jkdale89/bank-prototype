@@ -1,0 +1,207 @@
+<script>
+  $('.datepicker-here').datepicker();
+</script>
+
+<div class = "greeting">
+  <h2 class = "section-title" style="margin-top: -20px;">Transfer between my {{bankType.short}} accounts</h2>
+</div>
+
+<main class='transfers-page' ng-controller="StatusCenterController">
+  <gutter></gutter>
+  <div class = "content-panel panel-head gold-bottom">
+    <div class = "col-md-6 text-center accounts" ng-click="activity = false;" ng-class="{details: activity}">
+      <h2>Make a transfer</h2>
+    </div>
+    <div class = "col-md-6 details text-center" ng-click="activity = true;" ng-class="{details: !activity}">
+      <h2>Activity</h2>
+    </div>
+  </div>
+
+  <!-- Make a transfer tab -->
+ <div class= "bg-white" style="min-height: 720px" ng-hide="activity">
+  <div  style="min-height: 720px; max-height: 720px; border-left: 1px solid lightgray; border-right: 1px solid lightgray; border-bottom: 1px solid lightgray;">
+      <div ng-class="fadeOut? 'opacity0' : ''" ng-show="spinner" class="spinner"></div>
+      <div ng-class="transferReviewPage ? 'opacity0' : 'noOpacity'" ng-hide="fadeOut" class = "content-panel transfers-control">
+        <div class="row">
+         <h5 class="col-md-12" style="padding-bottom: 30px; font-size: 18px;">Transfer between my {{bankType.short}} accounts</h5>
+        </div>
+        <div class="row">
+          <p class="col-md-12">All fields are required unless noted as optional</p>
+        </div>
+        <div class="row">
+          <div class='col-md-12'>
+            <div class="form-field-header">From</div>
+            <div ng-class="fromRequiredError? 'errorBorder' : ''">
+              <account-dropdown accounts='transferSources' review-term="transfer" ng-click="resetFromError()" selection='transferSource' placeholder='Select account'></account-dropdown>
+            </div>
+          <div style="margin-top: -5px; padding-left: 0px" class='error-message' ng-if='fromRequiredError'>A From is required.</div>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class='col-md-12'>
+            <div class="form-field-header">To</div>
+            <div ng-class="transferSinkError? 'errorBorder' :''">
+              <account-dropdown accounts='transferSinks' review-term = "transfer" ng-click="verifyFromSelectedTransfer( $event )" selection='transferSink' placeholder='Once'></account-dropdown>
+            </div>
+            <div style="margin-top: -5px; padding-left: 0px" class='error-message' ng-if='transferSinkError'>A To is required.</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='col-md-12'>
+
+            <div class="form-field-header">Amount</div>
+            <div style="position: relative">
+              <p class = "pull-left body12 dollar">$</p>
+              <input ng-class="amountRequiredError? 'errorBorder' : '' " ng-model="amount" style="width: 100%; padding-left: 30px" type="textarea" placeholder="0.00" />
+            </div>
+
+            <div style="margin-top: -5px; padding-left: 0px" class='error-message' ng-if='amountRequiredError'>An amount is required.</div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class='col-md-6'>
+            <div class='form-field-header'>Frequency</div>
+            <custom-dropdown></custom-dropdown>
+          </div>
+
+          <div class='col-md-6'>
+            <div class='form-field-header'>Date</div>
+            <div class="row fund-transfer--picker" ng-class = "dateRequiredError? 'errorBorder' : ''">
+              <input type="text"
+                     data-date-format="m/dd/yyyy"
+                     data-language="en"
+                     data-range="false"
+                     placeholder="Today (now)"
+                     data-ng-model="transferDate"
+                     style="display: block; width: 100%;"
+                     airdatepicker
+              />
+              <span class="fa fa-calendar-o pull-right"></span>
+            </div>
+            <div style="margin-top: -5px" class='error-message' ng-if='dateRequiredError'>A date is required.</div>
+            <div style="margin-top: -5px" class='error-message' ng-if='pastDateError'>Date cannot be in the past.</div>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top: 24px;">
+          <div class="col-md-12" style="padding-top: 8px;" ng-hide="clicked">
+            <a class="link6" style="margin-left: 2px;" ng-click="clicked=1">Add note</a><span class="body4">&nbsp;(optional)</span>
+          </div>
+          <div class="col-md-12" ng-show="clicked">
+            <div class="form-field-header">Note<span class="body4">&nbsp;(optional)</span></div>
+            <div class="body4" style="padding: 3px 0 3px 2px;">This note appears in your records only.</div>
+            <textarea rows="2" maxRows="2" style="width: inherit; height: 59px; resize: none;" autofocus />
+          </div>
+        </div>
+
+        <div class="row" style="padding-top: 36px;">
+          <div class="col-md-12">
+            <div class="pull-right">
+              <a class='link3' ng-click='onCancel()'>Cancel</a>
+              <button ng-click="postTransfer(transferSource, transferSink, amount, dt)"class="btn btn-gold" style='margin-left: 60px;'>{{notToday(date) ? 'Schedule' : 'Review'}} transfer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="ft bg-white" ng-class="fadeIn? 'noOpacity' : 'opacity0'" style="padding-top: 1em;" ng-hide="!confirmationBox">
+      <div style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 24px;" class="confirmation-box text-center">
+        <div style="margin-bottom: 18px" class="circle"><i class = "fa fa-check"></i></div>
+        <h5 style="margin-bottom: 12px">{{frequency}} {{reviewTerm == 'payment' ? 'Payment' : reviewTerm == 'transfer' ? 'Transfer' : 'Transfer'}} scheduled</h5>
+        <p class = "body2">2FSDJF934S</p>
+        <p class = "bodygray2" style="margin-top: -15px">Confirmation ID</p>
+        <p class = "body2">{{dt | date:'medium'}}</p>
+        <p class = "bodygray2" style="margin-top: -15px">Expected Delivery</p>
+      </div>
+      <div class = "text-center">
+        <p class = "body15">{{amount | currency}}</p>
+        <p class = "bodygray2 inline">From&nbsp;&nbsp;</p>
+        <p class = "body8 inline">{{transferSource.nickname}}</p>
+        <br>
+        <p class = "bodygray2 inline">To&nbsp;&nbsp;</p><p class = "body8 inline">{{transferSink.nickname}}</p>
+        <br>
+        <button style="width: 75%; margin-top: 15px" class = "btn btn-gold link4" ng-click="resetFormsTransfers(); fadeIn = !fadein; fadeOut = !fadeOut; toggleReview()">Done</button>
+      </div>
+    </div>
+  </div>
+  <!-- End Make a transfer tab -->
+
+  <!-- BEGIN CONFIRMATION SCREEN -->
+
+
+
+  </div>
+
+
+  <!-- CONFIRMATION SCREEN -->
+
+<!-- CLOSE CONFIRMATION SCREEN -->
+
+  <!-- END CONFIRMATION SCREEN -->
+
+  <!-- Activity tab -->
+  <div ng-hide="!activity" class = "content-panel transfers-control" ng-hide="true">
+    <div class = "row" style="margin-bottom: 24px;">
+      <div class="row">
+        <div class="col-md-7 dropdown" style="padding-right: 0;">
+          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="form-field-placeholder-text">&quot;AT&amp;T&quot;, &quot;check&quot; or &quot;5.00&quot;</span>
+            <img src="./img/dropdown.svg">
+          </button>
+        </div>
+        <div class="col-md-3 dropdown" style="padding-right: 0;">
+          <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="form-field-filled-in">Pending</span>
+            <img src="./img/dropdown.svg">
+          </button>
+        </div>
+        <div class="col-md-2" style="padding-right: 0;">
+          <button class="btn btn-gold" style="width: 100%;">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 18px;" ng-repeat = "transfer in Transfers | limitTo: 2 | orderBy: created_at">
+      <div class="col-md-3">
+        <i class="fa fa-caret-right" style="margin-left: -24px;"></i>
+        <div class="body2">{{transfer.created_at | date:"M/dd/yy"}}</div>
+        <span class="transaction-category"><i class="fa fa-repeat" style="font-size: 12px;"></i>&nbsp;&nbsp;Monthly</span>
+      </div>
+      <div class="col-md-5">
+        <div class="body8">{{transfer.recipient}}</div>
+        <span class="body9">Family Checking #1234</span>
+      </div>
+      <div class="col-md-4">
+        <div class="pull-right">
+          <div class="body8 pull-right">{{transfer.amount| currency}}</div>
+          <div>
+            <a class="link3">Cancel</a>
+            <span style="color: #ccc;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <a class="link3">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 separator separator-summary"></div>
+    </div>
+  </div>
+  <!-- End Activity tab -->
+
+</main>
+
+<aside>
+  <gutter></gutter>
+  <contact></contact>
+  <myteam></myteam>
+</aside>
+
+<gutter></gutter>
+<gutter></gutter>
+<gutter></gutter>
+<gutter></gutter>
+<gutter></gutter>
+<gutter></gutter>

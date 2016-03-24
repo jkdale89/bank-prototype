@@ -1,0 +1,69 @@
+<!-- Status Center Open-->
+<div class="status-center" style="margin-top: 24px">
+  <!-- Tracking Payments  -->
+  <div class="sc-tracker" ng-click="showPayments = !showPayments">
+
+    <div class="content-panel panel-head disclosing" ng-class="!(showPayments == false && showAddPayment == false) ? 'gold-bottom' : ''">
+      <div class='sc-content-container'>
+        <div class='sc-tracker-title'>
+          <h2>Bill payments</h2>
+          <div ng-if="!Bills.totalIsUpdating" class='body9'>${{Bills.scheduled() | number}} within the next month</div>
+          <div ng-if="Bills.totalIsUpdating" class='body9'>{{Bills.totalIsUpdating}}</div>
+        </div>
+        <div class='sc-tracker-title' ng-if="scheduledPayments.count == 0">
+          <h2>You have no payments scheduled.</h2>
+        </div>
+      </div>
+    </div>
+
+        <div class='sc-tracker-action' style="position: absolute; right: 24px; margin-top: -54px;">
+          <button class='btn btn-white short pull-right' style="width: 140px;" ng-click='showAddPayment = true; resetErrors();'>Make a payment</button>
+        </div>
+      </div>
+      <div style="margin-left: 13.75%" class="chevron-down chevron-down-payments" ng-hide="showPayments||showAddPayment"></div>
+
+  <!-- PAYMENT DIRECTIVE BEGINNING - WHEN "MAKE A PAYMENT" IS CLICKED, OPENS THIS -->
+  <div class="sc-make-payment-initial"
+    ng-class="showAddPayment ? 'sc-make-payment-expanded' : ''">
+    <fund-payment
+      reviewTerm="payment"
+      schedule="schedule" first-accounts='paymentSinks' first-account='paymentSink' error-toggle='requirePaymentSink'
+      second-accounts='paymentSources' second-account='paymentSource'>
+    </fund-payment>
+  </div>
+
+
+
+  <div class = 'bg-white sc-initial content-panel' style="padding-bottom: 0px" ng-class="(showPayments || showAddPayment)? 'sc-expanded' : ''">
+
+    <div style="position: relative; margin-: 0 auto; height: 0px">
+      <div style="position: absolute; margin-left: 0px; margin-top: -100px" ng-show="secondarySpinnerPayments" class="spinner-sc"></div>
+    </div>
+    <div ng-class="secondarySpinnerPaymentsX ? 'opacity0' : 'noOpacity'">
+      <div class = "bg-white row content-sc" ng-repeat="bill in Bills | filter:{scheduled: true} | orderBy: created_at">
+        <div class='sc-payment'>
+          <div class='sc-pay-left'>
+            <div class='sc-pay-when body7'>{{bill.pay_date | asDate | date:'M/dd'}}</div>
+            <div class='sc-pay-recipient body8'>{{bill.nickname}}</div>
+            <div ng-if="!atmRebate" class="sc-pay-source body9">from Family Checking 1234</div>
+            <div ng-if="atmRebate" class="sc-pay-source body9" style="white-space: nowrap">from ATM Rebate Checking 1234</div>
+          </div>
+          <div class='sc-pay-right'>
+            <h4>{{bill.next_payment_amount | currency}}</h4>
+            <div class="sc-cancel">
+              <div ng-if="!bill.note">
+                <a ng-controller="MainCtrl" class="link3">Cancel</a>
+              </div>
+              <div ng-if="bill.note">
+                <p class="sc-description body3 sc-status">{{bill.note}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row sc-control sc-content-container" ng-hide="(showPayments == false && showAddPayment == false)">
+    <div ng-click= "showPayments = false; showAddPayment = false" class = "chevron-up chevron-up-sc"></div>
+  </div>
+</div>

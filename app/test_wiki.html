@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" container="width=device-width" charset="utf-8">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <script src="js/app.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/directives.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/services.js"></script>
+  <script src="//use.typekit.net/wfj1syv.js"></script>
+  <script>try{Typekit.load({async: true});}catch(e){}</script>
+  
+  <style>
+    section {margin-bottom: 2em;}
+    div.table {display: table; border-collapse: collapse;}
+    div.td {display: table-cell; min-width: 12em; border: 1px solid lightgray; padding: 1em;}
+    div.tr {display: table-row;}
+  </style>
+</head>
+<body>
+  <header style="height: 3em; padding: 24px;">
+    <h1>Test Wiki!</h1>
+  </header>
+  <aside style="min-height: 44em; width: 12em; float: left; padding: 24px; border: 1px solid lightgray;">
+    Table of Contents
+  </aside>
+  <main style="padding: 24px; border-top: 1px solid lightgray;">
+    <section>
+      <h2>Design Principles</h2>
+      <p>This isn't a real wiki, just a demonstration of what it would be like to use the parrot
+      stylesheet in the wiki so when we change, for example, the button styling, the change would be shown here automatically.</p>
+      <p>The advantage is that it eliminates all the intermediate artifacts&mdash;wireframes, comps, etc.&mdash; so
+      we have less stuff to create and maintain.
+      </p>
+    </section>
+    <section>
+      <h2>Layout &amp; Navigation</h2>
+    </section>
+    <section>
+      <h2>Branding &amp; Iconography</h2>
+    </section>
+    <section>
+      <h2>Color &amp; Typography</h2>
+      <div class="table">
+        <div class="tr">
+          <div class="td">Heading 1</div>
+          <div class="td">Used for ...</div>
+          <div class="td"><h1>Example</h1></div>
+        </div>
+        <div class="tr">
+          <div class="td">Body</div>
+          <div class="td">Used for ...</div>
+          <div class="td"><span class="body">Example</span></div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Animation</h2>
+    </section>
+    <section>
+      <h2>Controls</h2>
+      <h3>Buttons</h3>
+      <div class="table">
+        <div class="tr">
+          <div class="td">Basic button</div>
+          <div class="td">Used for ...</div>
+          <div class="td"><button class="btn btn-gold">Example</button></div>
+        </div>
+        <div class="tr">
+          <div class="td">Small button</div>
+          <div class="td">Used for ...</div>
+          <div class="td"><button class="btn btn-white short">Example</button></div>
+        </div>
+      </div>
+      <h3>Dropdowns</h3>
+      <div class="table">
+        <div class="tr">
+          <div class="td">Basic dropdown</div>
+          <div class="td">Used for ...</div>
+          <div class="td">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Dropdown</button>
+            </div>
+          </div>
+        </div>
+        <div class="tr">
+          <div class="td">Account dropdown</div>
+          <div class="td">Used for ...</div>
+          <div class="td">
+            <div class="dropdown" id="accountsearch">
+              <button class="btn dropdown-toggle accountselector" type="button" data-toggle="dropdown">Example</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>Disclosable Panels</h3>
+      <h3>Text Input</h3>
+    </section>
+    <section>
+      <h2>User Feedback &amp; Error Reporting</h2>
+    </section>
+  </main>
+</body>
+</html>

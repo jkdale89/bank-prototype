@@ -1,0 +1,68 @@
+<script>$('.datepicker-here').datepicker();</script>
+
+<!-- Tracking Transfers -->
+<div class="status-center" ng-init="transfersPromise()">
+  <div class="sc-tracker" ng-click="showTransfers = true" >
+
+    <div class="content-panel panel-head disclosing" ng-class="!(showTransfers == false && showAddTransfer == false) ? 'gold-bottom' : ''">
+      <div class='sc-content-container'>
+        <div class='sc-tracker-title' ng-if="true">
+          <h2>Transfers</h2>
+          <div ng-if="!Transfers.totalIsUpdating" class='body9'>${{Transfers.scheduled() | number}} within the next month</div>
+          <div ng-if="Transfers.totalIsUpdating" class='body9'>{{Transfers.totalIsUpdating}}</div>
+        </div>
+        <div class='sc-tracker-title' ng-if="scheduledPayments.count == 0">
+          <h2>You have no transfers scheduled.</h2>
+        </div>
+      </div>
+    </div>
+
+        <div class='sc-tracker-action' style="position: absolute; right: 24px; margin-top: -54px; ">
+          <button class='btn btn-white short pull-right' style="width: 140px;" ng-click='showAddTransfer = true; resetErrors();'>Make a transfer</button>
+        </div>
+      </div>
+      <div style="margin-left: 13.75%" class="chevron-down chevron-down-transfers" ng-hide="showTransfers||showAddTransfer"></div>
+
+  <!-- TRANSFER BOX OPENED - WHEN MAKE A TRANSFER IS CLICKED, OPENS THIS -->
+  <div class="sc-make-transfer-initial" ng-class = "showAddTransfer? 'sc-make-transfer-expanded' : ''">
+    <fund-transfer
+      review-term="transfer"
+      first-account-title='From' schedule="schedule" first-accounts='transferSources' first-account='transferSource' error-toggle='requireTransferSource'
+      second-account-title='To' second-accounts='transferSinks' second-account='transferSink'
+      >
+    </fund-transfer>
+  </div>
+  <div class="sc-transfer-initial" ng-class="showTransfers? 'sc-transfer-expanded' : ''">
+    <div style="position: relative">
+      <div ng-show="secondarySpinner" class="spinner-sc"></div>
+    </div>
+
+    <div class="row content-panel content-sc" ng-repeat="transfer in Transfers | filter:{transaction_type:'internal'} | orderBy: created_at">
+      <div class="sc-payment" ng-class="{last: $last}">
+        <div class="sc-pay-left">
+          <div class="sc-pay-when body7">{{transfer.created_at | date:'M/dd'}}</div>
+          <div class="sc-pay-recipient body8">{{transfer.recipient}}</div>
+          <div class="sc-pay-source body9">from Family Checking #1234</div>
+        </div>
+        <div class="sc-pay-right">
+          <h4>{{transfer.amount | currency}}</h4>
+          <div ng-if="transfer.description !== 'Weekly'" class="sc-description body3" ng-class="{'sc-status': transfer.description === 'Processing'}">{{transfer.description}}</div>
+          <div ng-if="transfer.description == 'Weekly'" class="sc-description body3" ng-class="{'sc-status': transfer.description === 'Processing'}">Weekly on {{transfer.created_at | date:'EEEE'}}s</div>
+          <div class="sc-cancel">
+            <!-- Add in cancel functionality -->
+            <div ng-if="transfer.description != 'Processing'">
+              <a ng-controller="MainCtrl" class="link3">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row sc-control" ng-show="showTransfers">
+    <div ng-click = "showTransfers = false; showAddTransfer = false" class = "chevron-up chevron-up-sc"></div>
+  </div>
+  <!-- Close Status Center -->
+  </div>
+</div>
+
+<gutter></gutter>

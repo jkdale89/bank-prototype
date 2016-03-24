@@ -1,0 +1,131 @@
+[
+  
+    {
+        "user": 0,
+        "id": 3,
+        "account": 0,
+        "recipient": "College Fund",
+        "location": "EXTERNAL",
+        "amount": 1500,
+        "created_at": "",
+        "description": "Processing",
+        "transaction_type": "internal",
+        "scheduled": false
+    },
+
+    {
+        "user": 0,
+        "id": 4,
+        "account": 0,
+        "recipient": "Tahoe House",
+        "location": "EXTERNAL",
+        "amount": 3500,
+        "description": "Regular payment",
+        "created_at": "",
+        "is_internal": true,
+        "transaction_type": "internal",
+        "scheduled": true,
+        "next_payment_amount": 3000
+    },
+ 
+     {
+        "user": 0,
+        "id": 6,
+        "account": 0,
+        "recipient": "College Fund",
+        "amount": 1000,
+        "created_at": "",
+        "description": "Weekly",
+        "transaction_type": "internal",
+        "scheduled": true
+    },
+
+
+    {
+        "user": 0,
+        "id": 0,
+        "account": 0,
+        "recipient": "Jill Jankowski",
+        "location": "FIRST REPUBLIC",
+        "amount": 900,
+        "created_at": "",
+        "transaction_type": "personal",
+        "favorited": true,
+        "scheduled": false,
+        "is_personal": true
+    },
+
+    {
+        "user": 0,
+        "id": 1,
+        "account": 0,
+        "recipient": "Corbin Graeme - Ally Bank",
+        "location": "EXTERNAL",
+        "amount": 5500,
+        "created_at": "",
+        "transaction_type": "personal",
+        "scheduled": false,
+        "is_personal": true
+    },
+
+    {
+        "user": 0,
+        "id": 2,
+        "account": 0,
+        "recipient": "Ted - Chase Bank",
+        "location": "EXTERNAL",
+        "amount": 450,
+        "created_at": "",
+        "transaction_type": "personal",
+        "scheduled": false,
+        "is_personal": true
+    },
+
+    {
+        "user": 0,
+        "id": 5,
+        "account": 0,
+        "recipient": "Brokerage",
+        "amount": 500,
+        "created_at": "",
+        "scheduled": false
+    },
+
+
+    {
+        "user": 0,
+        "id": 7,
+        "recipient": "Rishi Chandar",
+        "account": 0,
+        "amount": 187,
+        "created_at": "",
+        "transaction_type": "",
+        "scheduled": true,
+        "is_personal": true
+    },
+
+    {
+        "user": 0,
+        "id": 8,
+        "recipient": "Lawrence Oliosh",
+        "account": 0,
+        "amount": 3345,
+        "created_at": "",
+        "is_personal": true,
+        "scheduled": true
+    },
+
+    {
+        "user": 0,
+        "id": 9,
+        "name": "Wire to California State",
+        "recipient": "California State",
+        "account": 0,
+        "amount": 5000,
+        "created_at": "",
+        "transaction_type": "wire",
+        "is_wire": true,
+        "scheduled": true
+    }
+
+]

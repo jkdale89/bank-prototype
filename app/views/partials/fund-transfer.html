@@ -1,0 +1,275 @@
+
+<!-- MAKE A PAYMENT OR TRANSFER SCREEN -->
+<!-- INPUT FIELDS FOR SCHEDULING A TRANSFER AND PAYMENT-->
+<!-- FIRST FORM -->
+
+
+<div class="content-panel-fund-transfer" ng-class = "collapse? 'nh' : 'ft'">
+  <div style="position: relative">
+    <div ng-show="spinner" class="spinner-sc"></div>
+  </div>
+
+  <div ng-class="!collapse? 'ft' : 'nh'; fadeOut? 'opacity0' : 'noOpacity'" ng-hide="hideTransfer">
+    <h5>Make a transfer</h5>
+    <p class="body" style="margin-bottom: 26px;">All fields are required unless noted as optional.</p>
+    <!-- FIRST FORM -->
+    <div class="form-field-header">From</div>
+    <div ng-class = "fromRequiredError ? 'errorBorder' : '' ; exceedsBalanceError ? 'errorBorderYellow' : '' ">
+      <account-dropdown
+        accounts='firstAccounts'
+        selection='firstAccount'
+        review-term="transfer"
+        ng-click='resetFromError(); populateDate()'
+        placeholder="Select account"
+        ng-show='firstAccounts'>
+      </account-dropdown>
+      <ng-transclude></ng-transclude>
+    </div>
+    <!-- ERROR MESSAGING - FIRST INPUT -->
+    <div style="margin-top: 0px" class='error-message' ng-if='fromRequiredError'>
+      A from is required first.
+    </div>
+    <!-- END FIRST FORM -->
+
+    <!-- SECOND FORM -->
+    <div class="form-field-header">To</div>
+    <div ng-class="toRequiredError ? 'errorBorder' : '' ">
+      <account-dropdown
+        accounts='secondAccounts'
+        selection='secondAccount'
+        review-term="transfer"
+        ng-click='verifyFromSelected($event); checkIfMortgage(); '
+        placeholder="Select account">
+      </account-dropdown>
+      <ng-transclude ng-if="!secondAccounts"></ng-transclude>
+    </div>
+
+    <!-- ERROR MESSAGING - SECOND INPUT -->
+    <div style="margin-top: -5px;" class='error-message' ng-if='toRequiredError'>
+      A to is required.
+    </div>
+
+    <!-- RADIO SELECTION FOR MORTGAGES -->
+    <div style="position: relative; margin-top: 24px;" ng-if="transferMortgage">
+      <p class="body2">Payment type</p>
+      <div style="margin-top: -10px">
+        <input
+          ng-model="paymentType"
+          style="border: none; width: auto; box-shadow: none; display: inline; cursor: pointer"
+          type="radio"
+          name="paytype"
+          value="Regular"
+          ng-click="regularPayment(secondAccount.next_payment_amount)"
+          checked
+        />
+        <p style="display: inline; margin-top: 15px; margin-left: 12px; position:absolute" class="body">
+          Regular payment
+        </p>
+      </div>
+      <div style="margin-top: -20px;">
+        <input
+          ng-model="paymentType"
+          style="border: none; width: auto; box-shadow: none; display: inline; cursor: pointer"
+          type="radio"
+          name="paytype"
+          value="Principal"
+          ng-click="principal()"
+        />
+        <p class="body" style="display: inline; margin-top: 15px; margin-left: 12px; position:absolute;">
+          Principal only payment
+        </p>
+      </div>
+    </div>
+    <!-- END SECOND INPUT -->
+
+    <!-- AMOUNT FIELD INPUT -->
+    <div class="form-field-header">{{noPaymentDue ? 'Principal amount' : 'Amount'}}</div>
+    <div ng-if="transferMortgage">
+      <p style="margin-top: 10px; font-size: 12px" class="body2">
+        Amounts greater than regular payment <br> may be applied to fees &amp; principal.
+      </p>
+    </div>
+    <div style="position: relative">
+      <p class = "pull-left body12 dollar">$</p>
+      <input
+        style="padding-left: 30px;"
+        ng-class = "amountRequiredError ? 'errorBorder' : exceedsBalanceError ? 'errorBorderYellow' : '' "
+        type = "number"
+        min="0.01"
+        step="0.01"
+        style="width: 100%"
+        ng-model="amount"
+        required
+        class="fund-transfer-input quickpay-drop"
+      />
+    </div>
+    <!-- AMOUNT ERROR MESSAGING -->
+    <div class='error-message' ng-if='amountRequiredError'>An amount is required.</div>
+    <div  class='error-message-yellow' ng-if='exceedsBalanceError'>
+      Transfer exceeds the available balance of the selected account.
+      You may use the line of credit associated with this account to complete this transfer.
+      Fees may apply.
+    </div>
+    <!-- END AMOUNT INPUT FIELD -->
+
+
+    <!-- DATE FORM -->
+    <div class="form-field-header">Date</div>
+    <div></div>
+    <!-- IF DATE REQUIRED ERROR, MAKE THE BORDER RED! -->
+    <div class="row fund-transfer--picker" ng-class = "(dateRequiredError || pastDateError)? 'errorBorder' : '' ">
+      <input
+        type="text"
+        data-date-format="m/dd/yyyy"
+        data-language="en"
+        data-range="false"
+        placeholder="Today (now)"
+        data-ng-model="transferDate"
+        airdatepicker
+      />
+      <span class="fa fa-calendar-o pull-right"></span>
+    </div>
+    <!-- DATE ERROR MESSAGING -->
+    <div class='error-message' ng-if='dateRequiredError'>A valid date is required.</div>
+    <div class='error-message' ng-if='pastDateError'>Date cannot be in the past.</div>
+    <!-- END DATE FORM -->
+
+    <!-- ADD NOTE FORM -->
+    <div>
+      <div class="row">
+        <div  ng-hide="clicked" style="margin-top: 10px;">
+          <div >
+            <a class="link6" style="margin-left: 2px;" ng-click="clicked=1">
+              Add note
+            </a>
+            <span class="body4">&nbsp;(optional)</span>
+          </div>
+        </div>
+        <div ng-show="clicked">
+          <span>
+            <div class="form-field-header">
+              Note<span class="body4">&nbsp;(optional)</span>
+            </div>
+            <div class="body4" style="padding: 3px 0 3px 2px;">
+              This note appears in your records only.
+            </div>
+          </span>
+          <textarea
+            rows="2"
+            maxRows="2"
+            style="width: 100%; height: 59px; resize: none;"
+            autofocus
+          />
+        </div>
+      </div>
+    </div>
+    <!-- ADD NOTE FORM END -->
+
+    <div class='action-area' ng-click="test()">
+      <a class='link3' ng-click="collapse = true">Cancel</a>
+      <button class="btn btn-gold short" ng-click="postQuickTransfer(firstAccount, secondAccount, amount, transferDate)">
+        {{futureDate ? 'Schedule' : 'Review'}} transfer
+      </button>
+    </div>
+  </div>
+  <!-- END SCHEDULE SCREEN   -->
+
+
+
+
+  <!-- REVIEW SCREEN -->
+  <div class="ft text-center row opacity0" style="padding-top: 1em;" ng-class="fadeIn? 'noOpacity' : ''" ng-hide="!reviewWindow">
+    <div style="margin-bottom: 22px" class="row">
+      <h5 clss="pull-left">
+        Review
+        {{secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan' ? 'payment' : 'transfer'}}
+        information
+      </h5>
+    </div>
+    <div class="row">
+      <p class = "bodygray2" style="display: inline">{{firstAccountTitle}}&nbsp;&nbsp;</p>
+      <p class = "body8" style="display: inline">{{firstAccount.nickname}}</p>
+      <p class = "bodygray2">{{firstAccount.account_type}} {{firstAccount.acct_no}}</p>
+    </div>
+    <div class="row">
+      <p class = "bodygray2" style="display: inline">{{secondAccountTitle}}&nbsp;&nbsp;</p>
+      <p class = "body8" style="display:inline">{{secondAccount.nickname}}</p>
+      <p class = "bodygray2">{{secondAccount.account_type}} {{secondAccount.acct_no}}</p>
+    </div>
+    <div class="row"
+      style="padding-bottom: 10px;">
+      <h5>{{amount | currency}}</h5>
+      <span class="bodygray2" ng-if="secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan'">
+        {{!secondAccount.next_payment ? 'Principal-only payment' : 'Regular payment'}}
+      </span>
+    </div>
+    <div class="row">
+      <p class = "body8" ng-if="transferDate != today">{{transferDate | asDate | date: 'MMM d'}}</p>
+      <p class="body8" ng-if="transferDate == today">Immediate</p>
+      <p class = "bodygray2" style="margin-top: -10px;">Expected delivery</p>
+    </div>
+    <div style="background: #F5F5F5; padding: 6px 12px 6px 12px; margin: 12px" ng-hide="!warningOn">
+      <!-- TODO - THIS IS ONLY FOR MORTGAGES -->
+      <p style="padding-top: 5px" class = "body10">
+        This transfer may incur a {{penaltyType}} penalty fee. Select "Confirm transfer" if you wish to continue.
+      </p>
+    </div>
+    <div style="margin-bottom: 30px" class = "row">
+      <a class = "link3" style="border-right: .1em solid lightgray; padding-right: 12px;" ng-click="reviewWindow = false; schedule = true;">
+        Back
+      </a>
+      <a class = "link3" style="margin: 0px 12px 0px 12px" ng-click="resetFormsTransfers()">
+        Cancel
+        {{secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan' ? 'payment' : 'transfer'}}
+      </a>
+      <button
+        style="width: 45%; margin-right: 0px;"
+        class = "btn btn-gold short"
+        ng-click="postQuickTransfer(firstAccount, secondAccount, amount, transferDate)">
+        {{futureDate(transferDate) ? 'Schedule ' : 'Confirm'}}
+        {{secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan' ? 'payment' : 'transfer'}}
+      </button>
+    </div>
+  </div>
+  <!-- CLOSE REVIEW SCREEN -->
+
+  <!-- CONFIRMATION SCREEN -->
+  <div class="ft" ng-class="fadeIn? 'noOpacity' : 'opacity0'" style="padding-top: 1em;" ng-hide="!confirmationBox">
+    <div class="confirmation-box text-center">
+      <div style="margin-bottom: 18px" class="circle"><i class = "fa fa-check"></i></div>
+      <h5 style="margin-bottom: 12px">
+        {{secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan' ? 'Payment' : 'Transfer'}}
+        {{transferDate == today ? 'completed' : 'scheduled'}}</h5>
+      <p style="font-size: 18px" class = "body2">2FSDJF934S</p>
+      <p class = "bodygray2" style="margin-top: -10px">Confirmation ID</p>
+    </div>
+    <div class = "text-center">
+      <div style="margin-bottom: 10px;">
+        <span class="body5">{{amount | currency}}</span><br/>
+        <span class="bodygray2"
+          ng-if="secondAccount.account_type == 'Mortgage' || secondAccount.account_type == 'Term Loan'">
+          {{!secondAccount.next_payment ? 'Principal-only payment' : 'Regular payment'}}
+        </span>
+      </div>
+      <p class = "bodygray2 inline">from&nbsp;&nbsp;</p>
+      <p class = "body8 inline">{{firstAccount.nickname}} {{firstAccount.number}}</p>
+      <div style="margin-top: -10px">
+        <p class = "bodygray2 inline">to&nbsp;&nbsp;</p>
+        <p class = "body8 inline">{{secondAccount.nickname}} {{secondAccount.number}}</p>
+      </div>
+      <div ng-if="!(transferDate == today)">
+        <span class = "body2">{{transferDate | asDate | date: 'MMM d h:mm a'}} PT</span><br/>
+        <span class = "bodygray2" style="margin-top: -15px">Expected delivery</span>
+      </div>
+      <br/>
+      <button
+        style="width: 95%; margin-top: 0px; margin-bottom: 20px"
+        class = "btn btn-gold short"
+        ng-click="resetFormsTransfers(firstAccount, secondAccount, amount, transferDate)">
+        Done
+      </button>
+    </div>
+  </div>
+  <!-- CLOSE CONFIRMATION SCREEN -->
+</div>
+<!-- CLOSE FUND TRANSFER CONTAINER

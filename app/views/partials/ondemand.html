@@ -1,0 +1,22 @@
+<div class = "row">
+  <label><h2>{{onDemandTitle}}</h2></label>
+</div>
+
+<div class="row">
+  <div class="dropdown col-md-10" id="ondemand">
+    <button style="position: relative" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="body">{{findSelected(onDemandOptions)}}</span>
+      <img style="top: 18px; right: 12px; position: absolute; cursor: pointer" src="./img/dropdown.svg">
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li
+      ng-repeat="option in onDemandOptions"
+      ng-click="changeSelected(onDemandOptions, $index)"><a ng-href="">{{option.name}}</a></li>
+    </ul>
+  </div>
+  <div class="col-md-2" style="padding: 0;">
+    <button class="btn btn-gold">Go</button>
+  </div>
+</div>
+
+<gutter></gutter>

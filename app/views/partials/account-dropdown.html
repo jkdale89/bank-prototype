@@ -1,0 +1,17 @@
+<div class="dropdown row account-dropdown" >
+	<button style="position: relative" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<div style="padding-left: 20px" ng-if="!selection">
+			{{placeholder}}
+		</div>
+		<div style="margin-top: -5px;" ng-if="selection">
+			<account-quad-summary review-term="{{reviewTerm}}" account='selection'></account-quad-summary>
+		</div>
+		<img src="./img/dropdown.svg">
+	</button>
+
+	<ul style="padding-bottom: 12px" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<li ng-repeat="account in accounts" class='account-quad' ng-click='selectAccount(account)'>
+			<account-quad-summary atm-rebate="{{atmRebate}}" review-term="{{reviewTerm}}" account='account'>available balance</account-quad-summary>
+		</li>
+	</ul>
+</div>

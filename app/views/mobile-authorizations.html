@@ -1,0 +1,98 @@
+<div class = "greeting">
+  <h2 class = "section-title">Mobile Authorizations</h2>
+</div>
+
+<main style="max-width: 10000px;">
+  <gutter></gutter>
+  <div class="content-panel panel-head"></div>
+  <div class="content-panel">
+    <img src="img/mocks/mobile_authorizations.png"
+        style="display: block; margin-top: -50px; margin-left: 24px;">
+  </div>
+  <!--
+  <div class="content-panel panel-head">
+    <h2>Quick bill add</h2>
+  </div>
+  <div class="content-panel" style="padding-bottom: 20px; padding-top: 10px;">
+    <button class = "btn btn-gold" style="width: 15%;">+ Add a bill</button>
+  </div>
+  <gutter></gutter>
+  <div class="content-panel panel-head">
+    <h2>View payments and bills</h2>
+  </div>
+  <div class="content-panel billpay">
+    <p class="body">You can pay these bills from the following account:</p>
+    <div class = "billpay-container">
+      <p class="form-field-header">Pay from<p>
+      <div class="dropdown" id="accountsearch">
+        <button class="btn dropdown-toggle accountselector" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <h6 class = "dropdown-type" id = "billsearch">Family Checking: #1234<i class = "fa fa-angle-down pull-right"></i></h6>
+          <p class = "pull-left" style="margin-top: -5px">{{current_account.account_type}} {{current_account.acct_no}} </p>
+          <p class = "pull-right" style="margin-top: -5px">{{current_account.balance | currency}}</p>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li ng-repeat="account in Accounts"><a href="#">{{account.nickname}}</a></li>
+        </ul>
+        <span class="body3">Preferred account</span>
+      </div>
+    </div>
+
+    <div class = "row">
+      <p class = "col-md-2 text-left table-header feat">Features</b>
+      <p class = "col-md-3 table-header">Bills</b>
+      <p class = "col-md-3 table-header" style="padding-left: 24px;">Amount</b>
+      <p class = "col-md-offset-1 col-md-3 table-header" style="margin-left: 40px;">Pay date</b>
+    </div>
+    <div class = "row" ng-repeat = "bill in Bills">
+      <div class = "col-md-2">
+        <span class = "billpay-danger glyphicon glyphicon-warning-sign" ></span>
+      </div>
+      <div class = "col-md-3">
+        <span>{{bill.name}}</span>
+        <p class = "bodygray">{{bill.number}}</p>
+      </div>
+      <div class = "col-md-3">
+        <input type="text" placeholder="$0.00" />
+      </div>
+      <div class = "col-md-3">
+        <input type="text" placeholder="mm/dd/yyyy" />
+      </div>
+    </div>
+  </div>
+  -->
+</main>
+
+<!--
+<aside>
+  <gutter></gutter>
+  <myteam></myteam>
+  <div class="content-panel panel-head"><h2>Bill reminders</h2></div>
+  <div class="content-panel" style="padding-bottom: 14px;">
+    <p class="body">Reminders allow you to set up a notification in Bill Pay to tell you when a payment is due.</p>
+    <span class="form-field-header">Set a reminder</span>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle bills" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: auto; min-width: 170px;">
+        <span id = "billsearch" class="form-field-placeholder-text">Select an account<i class = "fa fa-angle-down pull-right"></i></span>
+      </button>
+      <button class="btn btn-gold" style="margin-left: 5%; width: 44%;">Go</button>
+    </div>
+  </div>
+  <gutter></gutter>
+
+  <div class="content-panel panel-head">
+    <h2>Recent payments</h2>
+  </div>
+  <div class = "content-panel">
+    <div class="row table-header" style="margin-bottom: 12px;">
+      <span class = "col-md-5">Biller</span>
+      <span class = "col-md-3">Amount</span>
+      <span class = "col-md-4">Pay date</span>
+    </div>
+    <div class = "row">
+      <p class = "col-md-5">American Express</p>
+      <p class = "col-md-3">$5,000</p>
+      <p class = "col-md-4">11/15/2015</p>
+    </div>
+  </div>
+</aside>
+-->

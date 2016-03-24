@@ -1,0 +1,22 @@
+<div class="dropdown row">
+	<button style="position: relative" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<div style="padding-left: 18px" ng-if="!bill">
+			{{placeholder}}
+		</div>
+		<div ng-if="bill">
+			<div style="white-space: nowrap; margin-top: -5px" class = "quad-grid" ng-controller="StatusCenterController" ng-click="testQuad()">
+        		<div class='quad-grid-column'>
+          			<div class = "body2">{{bill.nickname}}</div>
+          			<div class = "body13">{{bill.acct_no}}</div>
+        		</div>
+        		<div class='quad-grid-column text-right'>
+          			<div class = "body13">{{bill.next_payment_amount | currency}} {{bill.scheduled ? 'scheduled' : ''}}</div>
+          			<div class = "body13" style="white-space: nowrap">{{bill.scheduled? '' : bill.description}}</div>
+        		</div>
+      			</div>
+			</div>
+			<img src="./img/dropdown.svg">
+		</button>
+
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-transclude></ul>
+</div>

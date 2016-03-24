@@ -1,0 +1,37 @@
+[{
+        "id": 0,
+        "firstName": "Joanna",
+        "lastName": "Smith",
+        "title": "Relationship Manager",
+        "phone": "415-831-6688",
+        "officePhone": "(903) 943-1020",
+        "accounttypes": ["0"],
+        "user": ["0"]
+    }, {
+        "id": 1,
+        "firstName": "Bob",
+        "lastName": "Smitherson",
+        "title": "Project Manager",
+        "phone": "510-431-1388",
+        "officePhone": "(903) 943-4566",
+        "accounttypes": ["1"],
+        "user": ["0"]
+    }, {
+        "id": 2,
+        "firstName": "Roy",
+        "lastName": "Chang",
+        "title": "Relationship Manager",
+        "phone": "415-876-4656",
+        "officePhone": "(903) 943-4633",
+        "accounttypes": ["2"],
+        "user": ["0"]
+    }, {
+        "id": 3,
+        "firstName": "Ellen",
+        "lastName": "Stephanie",
+        "title": "Relationship Manager",
+        "phone": "415-123-6688",
+        "officePhone": "(903) 943-7878",
+        "accounttypes": ["3"],
+        "user": ["0"]
+    }]

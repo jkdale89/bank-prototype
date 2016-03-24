@@ -1,0 +1,104 @@
+<div ng-show="current_account.account_type == 'Mortgage'" class="row bg-white status-center">
+	<div class="content-panel panel-head gold-bottom">
+		<h2>Payment Information</h2>
+	</div>
+
+	<div class = "content-panel content-sc">
+		<h4>$3,607.41<span class="body9"> Next payment</span></h4>
+		<div class="row" style="margin-top: 10px;">
+      <span class="body2 sc-pay-when">Due 12/16</span>
+      <span class="pull-right"><span class="body9">Grace period ends 12/2&nbsp;</span><i class="fa fa-question-circle"></i></span>
+    </div>
+    <div ng-show="shown" style="padding-top: 14px; padding-bottom: 10px;">
+      <div class="row">Principal<span class="pull-right">$0.00</span></div>
+      <div class="row">Interest<span class="pull-right">$0.00</span></div>
+      <div class="row">Fees<span class="pull-right">$0.00</span></div>
+      <div class="row">Escrow<span class="pull-right">$0.00</span></div>
+    </div>
+		<div class="row" style="margin-top: 4px; margin-bottom: 24px;">
+      <a class="link6" ng-click="shown=!shown"><span ng-show="shown">Hide</span><span ng-hide="shown">Show</span>&nbsp;payment breakdown</a>
+    </div>
+    <!-- Payment Types: 0==none, 1==Regular, 2==Principal-Only -->
+    <div class="row separator" ng-show="shown || paymentType"></div>
+		<div class="row" ng-show="!paymentType" style="padding-top: 12px; padding-bottom: 36px;">
+      <button ng-click="paymentType=1" class="btn btn-gold pull-left" style="width: 42.5%;">Regular payment</button>
+      <button ng-click="paymentType=2" class="btn btn-gold pull-right" style="width: 52.5%;">Principal-only payment</button>
+		</div>
+
+    <div class="row fund-transfer" ng-show="paymentType==1">
+			<h4>Make a regular payment</h4>
+			<div class="row body9" style="padding-top: 12px;">All fields are required unless noted as optional.</div>
+			<div class="row body8" style="padding-top: 24px; padding-bottom: 2px;">Pay {{current_account.nickname}}</div>
+			<div class="form-field-header">Amount</div>
+      <div class="row" style="margin-left: 2px; padding-bottom: 12px;">
+        <span class="body3">Amounts greater than regular payment may apply to fees &amp; principal.&nbsp;</span><i class="fa fa-question-circle"></i>
+      </div>
+      <input type = "text" placeholder="$0.00" />
+			<div class="form-field-header">From</div>
+      <dropdown placeholder="Select account"></dropdown>
+			<div class="row" style="padding-bottom: 24px;">
+        <div class="col-md-6" style="padding-left: 0;">
+          <div class="form-field-header">Frequency<i class="fa fa-repeat" style="padding-left: 0.5em;"></i></div>
+          <div class="dropdown row">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span>Once<i class="fa fa-angle-down"></i></span>
+            </button>
+            <ul class="dropdown-menu" id="ondemand" role="menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">Weekly</a></li>
+              <li><a href="#">Semi-monthly</a></li>
+              <li><a href="#">Monthly</a></li>
+              <li><a href="#">Quarterly</a></li>
+              <li><a href="#">Semi-annually</a></li>
+              <li><a href="#">Annually</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-right: 0;">
+          <div class="form-field-header">Date</div>
+          <input type ="textarea" placeholder="Today (now)" />
+          <i class="fa fa-calendar-o pull-right" style="margin-top: -42px; margin-right: 12px;"></i>
+        </div>
+			</div>
+			<div style='text-align: right; margin-bottom: 20px; margin-left: 30px'>
+        <a class='link3' style="padding-right: 20px" ng-click='paymentType=0'>Cancel</a>
+        <button class="btn btn-gold" style='margin-left: 10px; width: 50%;'>Review payment</button>
+      </div>
+    </div>
+		<div class="row fund-transfer" ng-show="paymentType==2">
+			<h4>Make a principal-only payment</h4>
+			<div class="row body9" style="padding-top: 12px;">All fields are required unless noted as optional.</div>
+			<div class="row body8" style="padding-top: 24px; padding-bottom: 2px;">Pay {{current_account.nickname}}</div>
+			<div class="form-field-header">Principal amount</div>
+      <input type = "text" placeholder="$0.00" />
+			<div class="form-field-header">From</div>
+      <dropdown placeholder="Select account"></dropdown>
+			<div class="row" style="padding-bottom: 24px;">
+        <div class="col-md-6" style="padding-left: 0;">
+          <div class="form-field-header">Frequency<i class="fa fa-repeat" style="padding-left: 0.5em;"></i></div>
+          <div class="dropdown row">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span>Once<i class="fa fa-angle-down"></i></span>
+            </button>
+            <ul class="dropdown-menu" id="ondemand" role="menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">Weekly</a></li>
+              <li><a href="#">Semi-monthly</a></li>
+              <li><a href="#">Monthly</a></li>
+              <li><a href="#">Quarterly</a></li>
+              <li><a href="#">Semi-annually</a></li>
+              <li><a href="#">Annually</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-right: 0;">
+          <div class="form-field-header">Date</div>
+          <input type ="textarea" placeholder="Today (now)" />
+          <i class="fa fa-calendar-o pull-right" style="margin-top: -42px; margin-right: 12px;"></i>
+        </div>
+			</div>
+			<div style='text-align: right; margin-bottom: 20px; margin-left: 30px'>
+        <a class='link3' style="padding-right: 20px" ng-click='paymentType=0'>Cancel</a>
+        <button class="btn btn-gold" style='margin-left: 10px; width: 50%;'>Review payment</button>
+      </div>
+		</div>
+	</div>
+</div>

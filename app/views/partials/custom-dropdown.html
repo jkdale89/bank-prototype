@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="dropdown col-md-12" id="ondemand">
+    <button style="position: relative" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="body">{{findSelected(frequencyOptions)}}</span>
+      <img style="top: 18px; right: 12px; position: absolute; cursor: pointer" src="./img/dropdown.svg">
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li
+      ng-repeat="option in frequencyOptions"
+      ng-click="changeSelected(frequencyOptions, $index)"><a ng-href="">{{option.name}}</a></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div style="white-space: nowrap" class="quad-grid" ng-controller="StatusCenterController">
+	<div class='quad-grid-column'>
+		<div ng-if="(reviewTerm == 'transfer' || !atmRebate)" class="body2">
+	      {{account.nickname}}
+	    </div>
+	    <div ng-if="!(reviewTerm == 'transfer' || !atmRebate)" class="body2">
+	      ATM Rebate Checking
+	    </div>
+		<div class="body13">
+      		{{account.account_type}} {{account.acct_no}}
+    	</div>
+	</div>
+	<div ng-if="account.next_payment_amount == 'none'" class='quad-grid-column text-right' style="margin-left: -24px">
+		<div class="body3">No payment due</div>
+	</div>
+
+	<div ng-if="account.next_payment_amount !== 'none'" class='quad-grid-column text-right' style="margin-left: -24px">
+		<div class="body2">
+      {{reviewTerm == 'payment' ? account.balance : account.accounttype == 'Loans' ? account.next_payment_amount : account.balance | currency}}
+    </div>
+		<div class="body13">
+      		{{reviewTerm == 'payment' ? 'Available balance' : account.accounttype == 'Loans' ? account.next_payment : 'Available balance'}}
+    	</div>
+	</div>
+</div>
+<!-- WE NEED TO FIGURE OUT HOW TO IDENTIFY THIS ELEMENT AS A 'TO' AND AS A 'LOAN' - THAT'S IT -->
