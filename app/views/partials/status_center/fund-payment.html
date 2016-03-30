@@ -27,9 +27,9 @@
 
     <!-- SECOND FORM -->
     <div class="form-field-header">From</div>
-    <div ng-class = "toRequiredError ? 'errorBorder' : '' ">
+    <div style="height: 46px" ng-class = "toRequiredError ? 'errorBorder' : '' ">
         <account-dropdown
-          atmRebate="true"
+          atmrebate=true
           accounts='paymentSources'
           selection='paymentSource'
           placeholder="Select account">
@@ -38,7 +38,7 @@
     </div>
 
     <!-- ERROR MESSAGING - SECOND INPUT -->
-    <div style="margin-top: -5px;" class='error-message' ng-if='toRequiredError'>
+    <div style="margin-top: -5px;" class='error-message' ng-if='fromRequiredError'>
       A from is required.
     </div>
 
@@ -145,11 +145,11 @@
     <div class = "text-center">
       <p class = "body5">{{amount | currency}}</p>
       <p class = "bodygray2 inline">to&nbsp;&nbsp;</p>
-      <p class = "body8 inline">{{paymentSink.name}} {{paymentSink.number}}</p>
+      <p class = "body8 inline">{{paymentSink.nickname}} {{paymentSink.acct_no}}</p>
       <div style="margin-top: -10px">
         <p class = "bodygray2 inline">from&nbsp;&nbsp;</p>
-        <p ng-if="!atmRebate" class = "body8 inline">{{secondAccount.nickname}} {{secondAccount.number}}</p>
-        <p ng-if="atmRebate" class = "body8 inline">ATM Rebate Checking {{secondAccount.number}}</p>
+        <p ng-if="!atmRebate" class = "body8 inline">{{paymentSource.nickname}} {{paymentSource.acct_no}}</p>
+        <p ng-if="atmRebate" class = "body8 inline">ATM Rebate Checking {{paymentSource.acct_no}}</p>
       </div>
       <div style="margin-top: 10px">
         <p class = "bodygray2">Deliver by</p>

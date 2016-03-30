@@ -97,13 +97,9 @@ angular.module('Services', ['ngResource'])
   // Accounts from which money may be sent to
   self.drawableFrom = [];
 
-  // Accounts from which money may be drawable from
-  // Source must always be determined...so this is commented out
-
-  //self.despoitableTo = [];
 
   data.accountsPromise.then(function(accounts) {
-    var prohibited = ["Mortgage", "Investments", "External Accounts", "Overdraft", "Term Loan"];
+    var prohibited = ["Mortgage", "Investments", "External Accounts", "Overdraft", "Loan"];
     self.drawableFrom = accounts.filter(function(account) {
       return !(prohibited.includes(account.accounttype) || prohibited.includes(account.account_type));
     });

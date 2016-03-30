@@ -10,8 +10,8 @@
 	</button>
 
 	<ul style="padding-bottom: 12px" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li ng-repeat="account in accounts" class='account-quad' ng-click='selectAccount(account)'>
-			<account-quad-summary atm-rebate="{{atmRebate}}" review-term="{{reviewTerm}}" account='account'>available balance</account-quad-summary>
+		<li ng-repeat="account in accounts | limitTo: 5" class='account-quad' ng-click='selectAccount(account)'>
+			<account-quad-summary atmrebate="atmrebate" review-term="reviewTerm" account='account'>available balance</account-quad-summary>
 		</li>
 	</ul>
 </div>

@@ -265,13 +265,33 @@ angular.module('Controllers', [])
   }
 ])
 
-.controller("NavCtrl", ["$scope", function($scope){
+.controller("NavCtrl", ["$scope", "$uibModal", function($scope, $uibModal){
   $scope.makeActive = function(array, index) {
     for(var i = 0; i < array.length; i ++) {
       array[i].active = false
     }
     array[index].active = true
   }
+
+  $scope.openOverpanel = function(overpanelClass) {
+    $uibModal.open({
+      templateUrl: 'views/partials/overpanel.html',
+      controller: ["$scope", "$modalInstance", "overpanelClass",
+        function($scope, $modalInstance, overpanelClass) {
+          $scope.overpanelClass = overpanelClass
+        }
+      ],
+      backdrop: 'static',
+      keyboard: false,
+      size: 'overpanel',
+      resolve: {
+        overpanelClass: function() {
+          return overpanelClass;
+        }
+      }
+    });
+  }
+
 
   $scope.siteCategories = [
     //Input the different buckets for the navigation bar
@@ -421,14 +441,12 @@ angular.module('Controllers', [])
       $scope.schedule = false;
       $scope.spinner = false;
       $scope.dt = "";
-      $scope.atmRebate = true;
       $scope.paymentType = "Regular";
       $scope.today = new Date();
       $scope.tomorrow = ($scope.today + 86400000);
       $scope.today.setHours(0, 0, 0, 0);
       $scope.paymentDate = "";
       $scope.transferDate = "";
-      $scope.atmRebate = true;
       $scope.futureDate = null;
       $scope.reviewed = false;
       $scope.$watch('transferDate', function() {});
@@ -491,8 +509,8 @@ angular.module('Controllers', [])
           $scope.$apply(function() {
           $rootScope.secondarySpinnerPayments = false;
           $rootScope.Bills.push({
-              "name": fromAccount.name,
-              "amount": amount,
+              "nickname": fromAccount.nickname,
+              "next_payment_amount": amount,
               "scheduled": true,
               "pay_date": date
           })
@@ -619,7 +637,7 @@ angular.module('Controllers', [])
 
       // This posts a money movement
       $scope.confirmPayment = function(date) {
-        $scope.secondAccount ?
+        $scope.paymentSink ?
           $scope.toRequiredError = false : $scope.toRequiredError = true;
         $scope.amount ?
           $scope.amountRequiredError = false : $scope.amountRequiredError = true;
@@ -629,7 +647,7 @@ angular.module('Controllers', [])
         (($scope.dt > $scope.date - 86400000) || $scope.dateRequiredError == true) ?
         $scope.pastDateError = false: $scope.pastDateError = true;
         // Requires "from" account balance is greater than the amount sent
-        ($scope.amount && ($scope.amount > $scope.secondAccount.available_balance)) ?
+        ($scope.amount && ($scope.amount > $scope.paymentSink.available_balance)) ?
         $scope.exceedsBalanceError = true: $scope.exceedsBalanceError = false;
 
         if (!$scope.toRequiredError &&

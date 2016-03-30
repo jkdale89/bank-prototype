@@ -3,12 +3,16 @@
     <li ng-repeat="category in siteCategories"
     ng-mouseenter="submenu = true"
     ng-mouseleave="submenu = false">
-      <a class="white-link"
+      <a ng-if="category.urlAlias !== 'budgets-and-spending'" class="white-link"
       ng-href="#/{{category.urlAlias}}/{{awesome ? 'awesome' : null}}"
       ng-click="makeActive(siteCategories, $index)"
       ng-class="category.active ? 'darkbg' : ''">
         {{category.title}}
         <span ng-if="siteCategories[$index].options" class="caret submenu"></span>
+      </a>
+      <a ng-if="category.urlAlias === 'budgets-and-spending'" id="no-underline"
+        class="white-link"
+        ng-click="openOverpanel('budgets-and-spending')">Budgets &amp; Spending
       </a>
       <div class = "categories-dropdown" ng-hide="!submenu">
         <div class="row"

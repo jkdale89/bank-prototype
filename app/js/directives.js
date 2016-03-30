@@ -28,9 +28,8 @@
           selection: "=?",
           paymentDate: "=?",
           reviewTerm: "@",
-          atmRebate: '@'
-        },
-        replace: true
+          atmrebate: '=?'
+        }
       }
     },
 
@@ -43,7 +42,7 @@
           'account': '=',
           'subtext': '@',
           'reviewTerm': '@',
-          'atmRebate': '@'
+          'atmrebate': '=?'
         }
       }
     },
@@ -70,21 +69,6 @@
           };
           elem.datepicker(options);
         }
-      }
-    },
-
-    billDropdown = function() {
-      return {
-        restrict: 'EA',
-        templateUrl: 'views/partials/billdropdown.html',
-        replace: false,
-        scope: {
-          options: "=",
-          placeholder: '@',
-          heading: '@',
-          bill: '='
-        },
-        transclude: true
       }
     },
 
@@ -134,7 +118,7 @@
     fundPayment = function() {
       return {
         restrict: 'E',
-        templateUrl: 'views/partials/fund-payment.html',
+        templateUrl: 'views/partials/status_center/fund-payment.html',
         controller: 'StatusCenterController',
         replace: false,
         scope: {
@@ -145,7 +129,6 @@
           'showPayments': '@',
           'fromRequiredError': '=?errorToggle',
           'schedule': '@',
-          'atmRebate': '@',
           'reviewTerm': "@"
         }
 
@@ -155,7 +138,7 @@
     fundTransfer = function() {
       return {
         restrict: 'E',
-        templateUrl: 'views/partials/fund-transfer.html',
+        templateUrl: 'views/partials/status_center/fund-transfer.html',
         controller: 'StatusCenterController',
         replace: false,
         transclude: true,
@@ -251,7 +234,7 @@
     payments = function() {
       return {
         restrict: 'EA',
-        templateUrl: 'views/partials/payments.html',
+        templateUrl: 'views/partials/status_center/payments.html',
         controller: "StatusCenterController",
         replace: false,
         link: function($scope, element, attr) {}
@@ -289,7 +272,7 @@
       return {
         restrict: 'EA',
         controller: 'StatusCenterController',
-        templateUrl: 'views/partials/status-center.html',
+        templateUrl: 'views/partials/status_center/status-center.html',
         replace: false,
         link: function($scope, element, attr) {}
       }
@@ -325,7 +308,7 @@
     transfers = function() {
       return {
         restrict: 'EA',
-        templateUrl: 'views/partials/transfers.html',
+        templateUrl: 'views/partials/status_center/transfers.html',
         controller: 'StatusCenterController',
         replace: false,
         link: function($scope, element, attr) {}
@@ -338,7 +321,6 @@
   angular.module('Directives', [])
     .directive('accountsDashboard', accountsDashboard)
     .directive('airdatepicker', airdatepicker)
-    .directive('billDropdown', billDropdown)
     .directive('chart', chart)
     .directive('contact', contact)
     .directive('customDropdown', customDropdown)

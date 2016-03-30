@@ -27,8 +27,12 @@
     ng-class="showAddPayment ? 'sc-make-payment-expanded' : ''">
     <fund-payment
       reviewTerm="payment"
-      schedule="schedule" first-accounts='paymentSinks' first-account='paymentSink' error-toggle='requirePaymentSink'
-      second-accounts='paymentSources' second-account='paymentSource'>
+      schedule="schedule"
+      first-account='paymentSink'
+      first-accounts='paymentSinks'
+      error-toggle='requirePaymentSink'
+      second-account='paymentSource'
+      second-accounts='paymentSources'>
     </fund-payment>
   </div>
 
