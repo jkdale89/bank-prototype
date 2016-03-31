@@ -10,7 +10,7 @@
     accountsDashboard = function() {
       return {
         restrict: 'EA',
-        templateUrl: 'views/partials/accounts-dashboard.html',
+        templateUrl: 'views/partials/navigation/accounts-dashboard.html',
         replace: false,
         controller: 'AccountDropDownSelector',
         link: function($scope, element, attr) {}
